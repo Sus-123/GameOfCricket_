@@ -1,29 +1,43 @@
 package com.company;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 
-public class game {
-    private Team team1;
-    private Team team2;
-    private int totalAvailableBalls;
-    private  int overs;
+/*
+enum Winner{
+    TEAMFIRST,
+    TEAMSECOND,
+    TIE,
+    STARTED
+} */
 
+public class Game {
+    private  int noOfOvers;
+    private  Team teamFirst;
+    private  Team teamSecond;
+    //private Winner winner;
 
-    game () {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Total over to be played : ");
-        overs = sc.nextInt();
-        totalAvailableBalls = overs*6;
-        sc.nextLine();
-        team1 = new Team(totalAvailableBalls);
-        team2 = new Team(totalAvailableBalls);
+    GameUtil UtilObj = new GameUtil();
+    GameService serviceObj = new GameService();
+
+    Game( int noOfOvers,
+          String team1Name,
+          List<String> team1PlayersName,
+          List<String> team1PlayersType,
+          String team2Name,
+          List<String> team2PlayersName,
+          List<String> team2PlayersType
+    ){
+        this.noOfOvers = noOfOvers;
+        Team teamFirst = new Team(team1Name, team1PlayersName, team1PlayersType);
+        Team teamSecond = new Team(team2Name, team2PlayersName, team2PlayersType);
+       // winner = Winner.STARTED;
     }
 
-    int playToss() {
-        return ThreadLocalRandom.current().nextInt(0,2);
-    }
 
-    void playInningFirst (Team team) {
+   /* void playInningFirst (Team team) {
         Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < overs; i++) {
@@ -31,7 +45,7 @@ public class game {
             for (int j = 0; j < 6; j++) {
 
                 sc.nextLine();
-                int runs = ThreadLocalRandom.current().nextInt(0,7);
+                int runs = ThreadLocalRandom.current().nextInt(0,7); //define in var
                 team.increaseTotalBallsPlayed();
 
                 Player p = team.getCurrentPlayerData();
@@ -59,15 +73,21 @@ public class game {
 
         }
 
+    }*/
+
+    public  void startGame () {
+        int toss = UtilObj.playToss();
+        if(toss == 0)
+            serviceObj.startInning(teamFirst,teamSecond, noOfOvers);
+        else
+            serviceObj.startInning(teamSecond, teamFirst, noOfOvers);
     }
 
-    void startGame () {
-        int toss = playToss();
 
-        if(toss == 0) {
-            playInningFirst(team1);
-        }
-
+    public void showFinalScoreBoard () {
     }
+    public void declareWinner () {
+    }
+
 
 }
