@@ -10,7 +10,6 @@ public class GameUtil {
     public  int getIntegerInput(int lower, int upper) {
         int io;
         while(true) {
-            //io = sc.nextInt();
             try {
                 io = Integer.parseInt(sc.nextLine());
                 if (io < lower || io > upper) {
@@ -28,16 +27,16 @@ public class GameUtil {
     }
 
     public String getValidStringType () {
-        String input = "";
+        String io = "";
         while(true){
-            input = sc.nextLine();
-            if(input.isEmpty()){
+            io = sc.nextLine();
+            if(io.isEmpty()){
                 System.out.println("Enter Non-empty Value");
             }
             else
                 break;
         }
-        return input;
+        return io;
 //        String io;
 //        while (true) {
 //            try {

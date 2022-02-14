@@ -10,11 +10,12 @@ public class Strike {
     }
 
     public int getCurrentStrike () {
-        return currentStrike ;
+        return strikeHolders[currentStrike] ;
     }
 
     public void changeStrike (int runs) {
-        currentStrike = (currentStrike+1)%2;
+        if(runs%2 == 1)
+            currentStrike = (currentStrike+1)%2;
     }
 
     public void overChanged () {
@@ -22,7 +23,7 @@ public class Strike {
     }
 
     public int changeStrikeOnWicket () {
-        int maxPlayerIndex = Math.max(strikeHolders[0], strikeHolders[1]);
+        int maxPlayerIndex = Integer.max(strikeHolders[0], strikeHolders[1]);
         //Now next player will be the one who has just a greater number than the max Players index.
         int outedPlayer = strikeHolders[currentStrike];
         strikeHolders[currentStrike] = maxPlayerIndex+1;
