@@ -1,83 +1,85 @@
 package com.company;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Team {
-    private  String teaName;
-    private int teamScore;
-    private int totalBallsPlayed;
-    private int totalAvailableBalls;
-    private int currentPlayer;
+
+    private  String teamName;
     ArrayList<Player> players = new ArrayList<Player>();
-    Scanner sc = new Scanner(System.in);
+    private  final int  TOTAL_PLAYER_IN_TEAM;
+    private int teamScore;
+    private int currentWicket;
 
-    Team(int balls) {
-        totalAvailableBalls = balls;
-        System.out.println("Enter Team name : ");
-        String name = sc.nextLine();
+    //private int totalBallsPlayed;
 
+    Team(String teamName, List<String> playerNames, List<String> playerTypes) {
+        this.teamName = teamName;
+        //this.totalBallsPlayed = 0;
+        this.teamScore = 0;
+        this.currentWicket = 0;
+        TOTAL_PLAYER_IN_TEAM = playerNames.size();
+        setTeamPlayers(playerNames, playerTypes);
+    }
 
-        //set players list
-        System.out.println("Enter 10 Players name : ");
-        for (int i = 0; i < 10; i++) {
-            String playerName = sc.nextLine();
-            Player p = new Player(playerName);
+    void setTeamPlayers(List<String> playerNames, List<String> playerTypes) {
+        //System.out.println(playerNames.size());
+       // System.out.println(playerTypes.size());
+        for (int i = 0; i < playerNames.size() ; i++) {
+            //System.out.println(playerNames.size() + playerTypes.size());
+            Player p = new Player(playerNames.get(i), playerTypes.get(i));
             players.add(p);
         }
-        teamScore = 0;
-        totalBallsPlayed = 0;
-        teaName = name;
-        //totalRemainingBalls = 0;
-        currentPlayer = 0;
     }
 
-    //getters
     public String getName() {
-        return  this.teaName;
+        return  this.teamName;
     }
+
     public int getTeamScore() {
         return teamScore ;
     }
-    public int getTotalBallsPlayed() {
-        return  this.totalBallsPlayed;
-    }
-    public int getTotalAvailableBalls () {
-        return  this.totalAvailableBalls;
-    }
-    public Player getCurrentPlayerData() {
-        return  this.players.get(currentPlayer);
+
+    /*public ArrayList<Player> getPlayers() {
+        return players;
+    }*/
+
+    public  int getTotalPlayerInTeam() {
+        return  TOTAL_PLAYER_IN_TEAM;
     }
 
-    void increaseTeamScore(int score) {
+    public int getCurrentWicket() {
+        return  currentWicket;
+    }
+
+    public void increaseTeamScore(int score, int playerNumber) {
         teamScore += score;
-        Player p = players.get(currentPlayer);
+        Player p = players.get(playerNumber);
         p.incrementScore(score);
     }
 
-    void increaseTotalBallsPlayed() {
-        this.totalBallsPlayed++;
-        Player p = players.get(currentPlayer);
-        p.incrementBallsPlayed();
+    public void increaseWicket() {
+        currentWicket++;
     }
 
-    int getTotalWicket() {
-        return  currentPlayer;
+    public String getCurrentPlayerName(int currentPlayer) {
+        return players.get(currentPlayer).getName();
     }
 
-    void wicketOut() {
-        currentPlayer++;
-    }
+    //    public void increaseBallsPlayed (int playerNumber) {
+//        this.totalBallsPlayed++;
+//        Player p = players.get(playerNumber);
+//        p.increaseBallsPlayed();
+//    }
 
-    void printTotalPlayersScore() {
-        //System.out.println(String.format("%s: %d runs in %d balls", p.getName(), p.getScore(), p.getBallsPlayed()));
-
-        System.out.println(String.format("%s team members scores are : ", this.teaName));
-        for (int i = 0; i <= currentPlayer; i++) {
+    public void showPlayerWiseScore() {
+        for (int i = 0; i <= TOTAL_PLAYER_IN_TEAM; i++) {
             Player p = players.get(i);
-            System.out.println( String.format("%s: %d runs in %d balls", p.getName(), p.getScore(), p.getBallsPlayed()) );
+            System.out.println(p);
         }
     }
 
+    public int getPlayerScore ( int playerNumber) {
+        return players.get(playerNumber).getScore();
+    }
 
 }
