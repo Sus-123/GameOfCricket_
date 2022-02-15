@@ -1,5 +1,10 @@
 package com.company;
 
+
+import com.company.entity.Team;
+import com.company.service.GameService;
+import com.company.util.GameUtil;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,14 +21,14 @@ enum Winner{
 public class Game {
 
     private  int noOfOvers;
-    private  Team teamFirst;
+    private Team teamFirst;
     private  Team teamSecond;
     //private Winner winner;
 
     GameUtil UtilObj = new GameUtil();
     GameService serviceObj = new GameService();
 
-    Game( int noOfOvers,
+     public Game( int noOfOvers,
           String team1Name,
           List<String> team1PlayersName,
           List<String> team1PlayersType,
@@ -38,7 +43,7 @@ public class Game {
     }
 
 
-    public  void startGame () {
+    public void startGame () {
         int toss = UtilObj.playToss();
         if(toss == 0)
             serviceObj.startInning(teamFirst,teamSecond, noOfOvers);

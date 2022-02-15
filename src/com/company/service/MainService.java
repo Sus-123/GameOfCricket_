@@ -1,6 +1,8 @@
-package com.company;
+package com.company.service;
+import com.company.Game;
+import com.company.util.GameUtil;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.*;
 

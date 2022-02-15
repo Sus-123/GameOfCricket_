@@ -1,4 +1,5 @@
-package com.company;
+package com.company.util;
+import com.company.Constants;
 import com.sun.nio.sctp.InvalidStreamException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -6,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameUtil {
     Scanner sc = new Scanner(System.in);
+    Constants constants = new Constants();
 
     public  int getIntegerInput(int lower, int upper) {
         int io;
@@ -68,11 +70,11 @@ public class GameUtil {
     }
 
     public int playToss() {
-        return ThreadLocalRandom.current().nextInt(0,2);
+        return ThreadLocalRandom.current().nextInt(constants.getLowerTossBound(),constants.getUpperTossBound());
     }
 
     public  int getRandomRun() {
-        return ThreadLocalRandom.current().nextInt(0, 8);
+        return ThreadLocalRandom.current().nextInt(constants.getLowerRunBound(), constants.getUpperRunBound());
     }
 
 }

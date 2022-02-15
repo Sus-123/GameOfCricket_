@@ -1,4 +1,7 @@
-package com.company;
+package com.company.entity;
+import com.company.entity.Player;
+
+
 import java.util.ArrayList;
 import java.util.*;
 
@@ -12,7 +15,7 @@ public class Team {
 
     //private int totalBallsPlayed;
 
-    Team(String teamName, List<String> playerNames, List<String> playerTypes) {
+    public Team(String teamName, List<String> playerNames, List<String> playerTypes) {
         this.teamName = teamName;
         //this.totalBallsPlayed = 0;
         this.teamScore = 0;
@@ -26,7 +29,7 @@ public class Team {
        // System.out.println(playerTypes.size());
         for (int i = 0; i < playerNames.size() ; i++) {
             //System.out.println(playerNames.size() + playerTypes.size());
-            Player p = new Player(playerNames.get(i), playerTypes.get(i));
+             Player p = new Player(playerNames.get(i), playerTypes.get(i));
             players.add(p);
         }
     }

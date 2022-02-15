@@ -1,4 +1,7 @@
-package com.company;
+package com.company.main;
+import com.company.Game;
+import com.company.service.MainService;
+
 import java.util.Scanner;
 
 public class Main {
