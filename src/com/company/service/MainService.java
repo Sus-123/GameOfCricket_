@@ -8,25 +8,28 @@ import java.util.*;
 
 public class MainService {
 
-    private  static final Scanner sc = new Scanner(System.in);
+    GameUtil gameUtil = new GameUtil();
 
-    GameUtil obj = new GameUtil();
+
+    /**
+     * initializeNewGame : Will create a new game, taking user input for num of overs, each team details
+     */
 
     public Game initializeNewGame() {
         System.out.println("Enter Number Of overs to be played, it can be between 0 to 50");
-        int numOfOver = obj.getIntegerInput(1,50);
+        int numOfOver = gameUtil.getIntegerInput(1,50);
         System.out.println("Enter Number of Players: ");
-        int numOfPlayer = obj.getIntegerInput(2,11);
+        int numOfPlayer = gameUtil.getIntegerInput(2,11);
 
         System.out.println("Enter Team1 name: ");
-        String team1Name = obj.getValidStringType();
+        String team1Name = gameUtil.getValidStringType();
         List<String> team1PlayersName = new ArrayList<String>();
         List<String> team1PlayersType = new ArrayList<String>();
         initializeTeamPlayer(team1PlayersName, team1PlayersType,numOfPlayer);
 
 
         System.out.println("Enter Team2  name: ");
-        String team2Name = obj.getValidStringType();
+        String team2Name = gameUtil.getValidStringType();
         List<String> team2PlayersName = new ArrayList<String>();
         List<String> team2PlayersType = new ArrayList<String>();
         initializeTeamPlayer(team2PlayersName, team2PlayersType, numOfPlayer);
@@ -36,12 +39,18 @@ public class MainService {
 
     }
 
+
+    /**
+     * initializeTeamPlayer : will instantiate players of each team.
+     * @param playersName : Name of each player
+     * @param playersType : Type of each player
+     */
     public void initializeTeamPlayer(List<String> playersName, List<String> playersType, int numberOfPlayer) {
         for (int i = 0; i < numberOfPlayer; i++) {
             System.out.print("Player-" + i + " Name:");
-            playersName.add(obj.getValidStringType());
+            playersName.add(gameUtil.getValidStringType());
             System.out.print("Player-" + i + " Type:");
-            playersType.add(obj.getPlayerType());
+            playersType.add(gameUtil.getPlayerType());
         }
         //System.out.println("Size of team name" + playersName.size());
        // System.out.println("size of type :" + playersType.size());

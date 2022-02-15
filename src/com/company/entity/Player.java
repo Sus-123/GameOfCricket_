@@ -11,7 +11,7 @@ public class Player {
     private PlayerType playerType;
     private  int ballsPlayed ;
 
-    Player(String name, String type) {
+    public Player(String name, String type) {
         this.score = 0;
         this.playerName = name;
         //this.playerType = type;
@@ -23,6 +23,7 @@ public class Player {
             playerType = PlayerType.BOWLER;
         }
     }
+
 
     public String getName() {
         return playerName;

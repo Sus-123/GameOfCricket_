@@ -11,10 +11,13 @@ public class Main {
 
         MainService obj = new MainService();
 
+        //Creating a new match with num of overs,two teams, its player and player types
         Game newGame = obj.initializeNewGame();
 
+        //start the match
         newGame.startGame();
 
+        //see final score board
         newGame.showFinalScoreBoard();
 
     }

@@ -8,12 +8,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameUtil {
     Scanner sc = new Scanner(System.in);
     Constants constants = new Constants();
+    Helper helper = new Helper();
 
+
+    /**
+     * getIntegerInput : take user input from Helper class and validates it
+     * @param lower : lower bound of overs to be played
+     * @param upper : upper bound of overs to be played.
+     */
     public  int getIntegerInput(int lower, int upper) {
-        int io;
+        int io = helper.getIntegerInput();
         while(true) {
             try {
-                io = Integer.parseInt(sc.nextLine());
+                //io = Integer.parseInt(sc.nextLine());
                 if (io < lower || io > upper) {
                     System.out.println(String.format("Values Should be in range % d and % d", lower, upper));
                 } else {
@@ -28,10 +35,15 @@ public class GameUtil {
         return io;
     }
 
+    /**
+     * getValidStringType : takes valid user input from Helper class and validates it
+     */
+
     public String getValidStringType () {
         String io = "";
+        io = helper.getStringInput();
         while(true){
-            io = sc.nextLine();
+           // io = sc.nextLine();
             if(io.isEmpty()){
                 System.out.println("Enter Non-empty Value");
             }
@@ -56,6 +68,9 @@ public class GameUtil {
 //        return io;
     }
 
+    /**
+     * getValidStringType : takes type of each player and check if its Batsman or baller
+     */
     public String getPlayerType() {
         String io = "";
         while(true){
@@ -69,10 +84,17 @@ public class GameUtil {
 
     }
 
+    /**
+     * playToss : play toss to decide which team will go first
+     */
+
     public int playToss() {
         return ThreadLocalRandom.current().nextInt(constants.getLowerTossBound(),constants.getUpperTossBound());
     }
 
+    /**
+     * getRandomRun : generates random run for the player
+     */
     public  int getRandomRun() {
         return ThreadLocalRandom.current().nextInt(constants.getLowerRunBound(), constants.getUpperRunBound());
     }

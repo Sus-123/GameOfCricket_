@@ -8,7 +8,19 @@ public class GameService {
     private int noOfOvers ;
     Strike strike ;
 
-    public void startInning (Team teamBatsMan, Team teamBowler, int noOfOvers) {
+
+
+    /**
+     * Start Inning will initialise a new match, call Play Inning to play the inning.
+     *
+     * @param teamBatsMan :  One who start match
+     * @param teamBowler
+     * @param noOfOvers
+     */
+
+
+
+    public void instantiatedGame (Team teamBatsMan, Team teamBowler, int noOfOvers) {
 
         this.noOfOvers = noOfOvers;
         System.out.println(teamBatsMan.getName() + " will start batting");
@@ -25,6 +37,15 @@ public class GameService {
         playInning (teamBowler, true, scoreToChase);
 
     }
+
+    /**
+     * Play Inning will play the match between two teams
+     *
+     * @param team : the team who will do batting
+     * @param isChaser : true if team is second Inner
+     * @param scoreToChase : either 0 or Score depends on if team is isChase or not .
+
+     */
 
     void playInning (Team team, boolean isChaser ,int scoreToChase) {
 
@@ -55,6 +76,12 @@ public class GameService {
             strike.overChanged();
         }
     }
+
+    /**
+     * Play Ball will be called for each ball and score a run accordingly.
+     * @param team : team from which player will play the ball
+     * @param ball: ball num to be played .
+     */
 
     boolean playBall(Team team, int ball) {
        // Strike strike = new Strike();

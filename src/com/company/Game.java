@@ -1,13 +1,7 @@
 package com.company;
-
-
 import com.company.entity.Team;
 import com.company.service.GameService;
 import com.company.util.GameUtil;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
 /*
@@ -43,12 +37,15 @@ public class Game {
     }
 
 
+    /**
+     * startGame : Play the toss and instantiate a match, if toss is 0, teamFirst will play the game else teamSecond will play
+     */
     public void startGame () {
         int toss = UtilObj.playToss();
         if(toss == 0)
-            serviceObj.startInning(teamFirst,teamSecond, noOfOvers);
+            serviceObj.instantiatedGame(teamFirst,teamSecond, noOfOvers);
         else
-            serviceObj.startInning(teamSecond, teamFirst, noOfOvers);
+            serviceObj.instantiatedGame(teamSecond, teamFirst, noOfOvers);
     }
 
     public void showFinalScoreBoard () {

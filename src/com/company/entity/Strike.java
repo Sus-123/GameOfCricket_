@@ -4,10 +4,18 @@ public class Strike {
     private int currentStrike ;
     private int [] strikeHolders;
 
+    /**
+     * Strike : Maintain the current players strike on the field
+     * strikeHolder : array of size two to hold player count of striker and batsman a
+     *  currentStrike : can be 0 and 1 depend on which index player is batting and which one is balling
+     */
+
     public Strike() {
         this.currentStrike = 0 ;
         this.strikeHolders = new int[]{0,1};
     }
+
+
 
     public int getCurrentStrike () {
         return strikeHolders[currentStrike] ;
