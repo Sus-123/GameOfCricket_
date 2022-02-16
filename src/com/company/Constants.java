@@ -5,12 +5,14 @@ public class Constants {
     private int upperTossBound;
     private int lowerRunBound;
     private int upperRunBound;
+    private int numOfPlayer;
 
     public Constants () {
         lowerTossBound = 0;
         upperTossBound = 2;
         lowerRunBound = 0;
         upperRunBound = 8;
+        numOfPlayer = 11;
     }
 
     public int getLowerTossBound() {
@@ -29,4 +31,7 @@ public class Constants {
         return upperRunBound;
     }
 
+    public int getNumOfPlayer() {
+        return numOfPlayer;
+    }
 }

@@ -1,4 +1,5 @@
 package com.company.service;
+import com.company.Constants;
 import com.company.Game;
 import com.company.util.GameUtil;
 
@@ -9,17 +10,17 @@ import java.util.*;
 public class MainService {
 
     GameUtil gameUtil = new GameUtil();
-
+    Constants constants = new Constants();
 
     /**
      * initializeNewGame : Will create a new game, taking user input for num of overs, each team details
      */
-
     public Game initializeNewGame() {
         System.out.println("Enter Number Of overs to be played, it can be between 0 to 50");
         int numOfOver = gameUtil.getIntegerInput(1,50);
-        System.out.println("Enter Number of Players: ");
-        int numOfPlayer = gameUtil.getIntegerInput(2,11);
+        //System.out.println("Enter Number of Players: ");
+        //int numOfPlayer = gameUtil.getIntegerInput(2,11);
+        int numOfPlayer = constants.getNumOfPlayer();
 
         System.out.println("Enter Team1 name: ");
         String team1Name = gameUtil.getValidStringType();

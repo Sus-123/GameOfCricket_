@@ -13,7 +13,6 @@ enum Winner{
 } */
 
 public class Game {
-
     private  int noOfOvers;
     private Team teamFirst;
     private  Team teamSecond;
