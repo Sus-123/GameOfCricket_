@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Team {
 
     private  String teamName;
-    ArrayList<Player> players;
+    public ArrayList<Player> players;
 
     public Team(String teamName) {
         this.teamName = teamName;

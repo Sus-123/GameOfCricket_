@@ -1,91 +1,67 @@
 package com.company.service;
 import com.company.Constants;
 import com.company.entity.Inning;
-import com.company.entity.Strike;
 import com.company.entity.Team;
 import com.company.util.Util;
 
 public class GameService {
-    Strike strike ;
-    Inning inning;
-    int noOfOvers ;
-    int scoreToChase ;
-    boolean isChaser;
-
-    public GameService(Team battingTeam, Team bowlingTeam, boolean isChaser, int scoreToChase, int noOfOvers) {
-        this.inning = new Inning(battingTeam, bowlingTeam);
-        this.noOfOvers = noOfOvers;
-        this.scoreToChase = scoreToChase;
-        this.isChaser = isChaser;
-
-    }
-
-    public int playInning () {
-       // this.inning = new Inning(battingTeam, bowlingTeam);
-        strike = new Strike();
-
-        Boolean allOut = false;
-
-        for (int i = 1; i <= noOfOvers; i++) {
-
-            System.out.println("Playing Over: " + i);
-            for (int j = 1; j <= 6; j++) {
-                int currentPlayer = strike.getCurrentStrike();
-                allOut = playBall(j, currentPlayer, inning.battingTeam);
-
-                if (allOut || (isChaser && (scoreToChase < inning.getScore()))) {
-                    if(allOut)
-                        return inning.getScore();
-                    else {
-                        System.out.println(inning.battingTeam.getName() + " Won the Match by: " + (inning.getScore() - scoreToChase) + " run ");
-                        return inning.getScore();
-                    }
-                }
-            }
-            if (allOut || (isChaser && (scoreToChase < inning.getScore()))) {
-                if(allOut)
-                    return inning.getScore();
-                else {
-                    System.out.println(inning.battingTeam.getName() + " Won the Match by: " + (inning.getScore() - scoreToChase) + " run ");
-                    return inning.getScore();
-                }
-            }
-            strike.changeStrikeOnOver();
-        }
-
-        return  inning.getScore();
-
-    }
+    GameServiceHelper gameServiceHelper = new GameServiceHelper();
+    Inning inning1;
+    Inning inning2;
 
     /**
-     * Play Ball will be called for each ball and score a run accordingly.
-     * @param team : team from which player will play the ball
-     * @param ball: ball num to be played .
-     * @param currentplyr
+     * instantiateNewGame  will initialise a new match, between two team
+     * @param team1
+     * @param team2
+     * @param numOfOver : total numb of over to be played
      */
 
-    boolean playBall(int ball ,int currentPlayer , Team team) {
-        //int currentPlayer = strike.getCurrentStrike();
+    public void initializeNewGame(Team team1, Team team2, int numOfOver) {
+        //System.out.println(team1.getName() + team2.getName());
 
-        int runs = Util.getRandomRun() ;
-        inning.increaseBallsPlayed(currentPlayer);
 
-        if (runs < 7) {
-            System.out.println(ball + ": " + runs + " Runs by " + inning.getCurrentBatsManName(currentPlayer));
-            inning.increaseScore(runs, currentPlayer);
-            //inning.playersScore.set(currentPlayer, inning.playersScore.get(currentPlayer)+runs);
-            //System.out.println(inning.playersScore.get(currentPlayer));
-            strike.changeStrikeOnRun(runs);
-            return  false ;
+        if(Util.playToss() == Constants.ZERO) {
+            inning1 = new Inning(team1, team2, false, 0, numOfOver);
+            gameServiceHelper.playInning(inning1);
+            System.out.println(team1.getName() + " ended game with " + inning1.score);
+
+            inning2 = new Inning(team2, team1, true,inning1.score, numOfOver);
+            gameServiceHelper.playInning(inning2);
+            System.out.println(team2.getName() + " ended game with " + inning2.score);
         }
+        else {
+            inning1 = new Inning(team2, team1, false, 0, numOfOver);
+            gameServiceHelper.playInning(inning1);
+            System.out.println(team2.getName() + " ended game with " + inning1.score);
 
-        int outPlayer = strike.changeStrikeOnWicket();
-        System.out.println("Player " + team.getCurrentPlayerName(outPlayer) + " Out with " + inning.getPlayerScore(outPlayer) );
-        inning.increaseWicket();
+            inning2 = new Inning(team1, team2, true, inning1.score, numOfOver);
+            gameServiceHelper.playInning(inning2);
+            System.out.println(team1.getName() + " ended game with " + inning2.score);
+        }
+    }
 
-        if(Constants.totalPlayerInTeam-1 == inning.getCurrentWicket()) return true;
-        return  false ;
+    public void showFinalScoreBoard () {
 
     }
+
+
+
+//
+//    /**
+//     * initializeTeamPlayer : will instantiate players of each team.
+//     * @param playersName : Name of each player
+//     * @param playersType : Type of each player
+//     */
+//    public void initializeTeamPlayer(List<String> playersName, List<String> playersType, int numberOfPlayer) {
+//        for (int i = 0; i < numberOfPlayer; i++) {
+//            System.out.print("Player-" + i + " Name:");
+//            playersName.add(gameUtil.getValidStringType());
+//            System.out.print("Player-" + i + " Type:");
+//            playersType.add(gameUtil.getPlayerType());
+//        }
+//        //System.out.println("Size of team name" + playersName.size());
+//       // System.out.println("size of type :" + playersType.size());
+//
+//    }
 
 }
