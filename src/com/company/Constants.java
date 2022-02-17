@@ -1,37 +1,20 @@
 package com.company;
 
+
 public class Constants {
-    private int lowerTossBound;
-    private int upperTossBound;
-    private int lowerRunBound;
-    private int upperRunBound;
-    private int numOfPlayer;
 
-    public Constants () {
-        lowerTossBound = 0;
-        upperTossBound = 2;
-        lowerRunBound = 0;
-        upperRunBound = 8;
-        numOfPlayer = 11;
-    }
+    public static int lowerTossBound = 0;
+    public static int upperTossBound = 2;
+    public static int lowerRunBound = 0;
+    public static int  upperRunBound = 8;
+    public static int ZERO = 0;
+    public static int loweBoundOfOver = 1;
+    public  static  int upperBoundOfOver = 50;
+    public static int totalBallInOver = 6;
+    public static int maxScorbleRun = 6;
+    public static int totalPlayerInTeam = 11;
+    public static int ONE = 1;
+    public static String BATSMAN = "BATSMAN";
+    public static String BOWLER = "BOWLER";
 
-    public int getLowerTossBound() {
-        return lowerTossBound;
-    }
-
-    public int getUpperTossBound() {
-        return upperTossBound;
-    }
-
-    public int getLowerRunBound() {
-        return lowerRunBound;
-    }
-
-    public int getUpperRunBound() {
-        return upperRunBound;
-    }
-
-    public int getNumOfPlayer() {
-        return numOfPlayer;
-    }
 }

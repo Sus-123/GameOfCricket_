@@ -1,22 +1,34 @@
 package com.company.main;
-import com.company.Game;
-import com.company.service.MainService;
-
+import com.company.Constants;
+import com.company.entity.Team;
+import com.company.service.GameServiceHelper;
+import com.company.util.Util;
 
 public class Main {
-
     public static void main(String[] args) {
 
-        MainService mainService = new MainService();
+        Util util = new Util();
+        GameServiceHelper gameServiceHelper = new GameServiceHelper();
 
-        //Creating a new match with num of overs,two teams, its player and player types
-        Game newGame = mainService.initializeNewGame();
+        System.out.println("Enter Number Of overs to be played, it can be between 1 to 50");
+        int numOfOver = util.getIntegerInput(Constants.loweBoundOfOver,Constants.upperBoundOfOver);
 
-        //start the match
-        newGame.startGame();
+        System.out.println("Enter Team1 name: ");
+        String team1Name = util.getValidStringType();
+        Team team1 = new Team(team1Name);
+
+
+        System.out.println("Enter Team2  name: ");
+        String team2Name = util.getValidStringType();
+        Team team2 = new Team(team2Name);
+        gameServiceHelper.initializeNewGame(team1,team2,numOfOver);
+
+
+        //Creating a new match
+       // gameServiceHelper.initializeNewGame();
 
         //see final score board
-        newGame.showFinalScoreBoard();
+    //    gameServiceHelper.showFinalScoreBoard();
 
     }
 }

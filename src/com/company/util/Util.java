@@ -1,22 +1,19 @@
 package com.company.util;
 import com.company.Constants;
-import com.sun.nio.sctp.InvalidStreamException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class GameUtil {
+public class Util {
     Scanner sc = new Scanner(System.in);
-    Constants constants = new Constants();
-    Helper helper = new Helper();
-
+    UtilHelper helper = new UtilHelper();
 
     /**
      * getIntegerInput : take user input from Helper class and validates it
      * @param lower : lower bound of overs to be played
      * @param upper : upper bound of overs to be played.
      */
-    public  int getIntegerInput(int lower, int upper) {
+     public  int getIntegerInput(int lower, int upper) {
         int io = helper.getIntegerInput();
         while(true) {
             try {
@@ -88,15 +85,15 @@ public class GameUtil {
      * playToss : play toss to decide which team will go first
      */
 
-    public int playToss() {
-        return ThreadLocalRandom.current().nextInt(constants.getLowerTossBound(),constants.getUpperTossBound());
+    public static int playToss() {
+        return ThreadLocalRandom.current().nextInt(Constants.lowerTossBound,Constants.upperTossBound);
     }
 
     /**
      * getRandomRun : generates random run for the player
      */
-    public  int getRandomRun() {
-        return ThreadLocalRandom.current().nextInt(constants.getLowerRunBound(), constants.getUpperRunBound());
+    public static int getRandomRun() {
+        return ThreadLocalRandom.current().nextInt(Constants.lowerRunBound, Constants.upperRunBound);
     }
 
 }

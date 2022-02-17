@@ -21,12 +21,12 @@ public class Strike {
         return strikeHolders[currentStrike] ;
     }
 
-    public void changeStrike (int runs) {
+    public void changeStrikeOnRun (int runs) {
         if(runs%2 == 1)
             currentStrike = (currentStrike+1)%2;
     }
 
-    public void overChanged () {
+    public void changeStrikeOnOver () {
         currentStrike = (currentStrike+1)%2;
     }
 
@@ -36,7 +36,5 @@ public class Strike {
         int outedPlayer = strikeHolders[currentStrike];
         strikeHolders[currentStrike] = maxPlayerIndex+1;
         return  outedPlayer;
-
     }
-
 }

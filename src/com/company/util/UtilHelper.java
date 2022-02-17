@@ -1,7 +1,8 @@
 package com.company.util;
 import java.util.Scanner;
 
-public class Helper {
+public class UtilHelper {
+
     Scanner sc = new Scanner(System.in);
 
     public int getIntegerInput() {
