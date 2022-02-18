@@ -7,13 +7,12 @@ import com.company.entity.Strike;
 import com.company.util.Util;
 
 public class GameServiceHelper {
-    Strike strike;
-    Inning inning;
+
+
 
     public void playInning (Inning inning) {
         System.out.println("Team " + inning.battingTeam.getName() + " Started the match ");
-        strike = new Strike();
-        this.inning = inning;
+        Strike strike = new Strike();
 
         Boolean allOut = false;
 
@@ -33,7 +32,7 @@ public class GameServiceHelper {
                 // for each ball there will be a new instance of ballDetails.
                 BallDetails ballDetails = new BallDetails();
                 inning.currentBatsMan = strike.getCurrentStrike();
-                allOut = playBall(ballDetails, j, currentBowlerIndex);
+                allOut = playBall( inning, ballDetails, j, currentBowlerIndex, strike);
 
                 //add particular ball details, after ball being played into over details
                 overDetails.ballDetails.add(ballDetails);
@@ -54,7 +53,7 @@ public class GameServiceHelper {
     }
 
 
-    boolean playBall(BallDetails ballDetails, int currentBall, int currentBowlerIndex) {
+    boolean playBall( Inning inning, BallDetails ballDetails, int currentBall, int currentBowlerIndex, Strike strike) {
 
         int runs = Util.getRandomRun() ;
 

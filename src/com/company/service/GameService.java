@@ -5,6 +5,7 @@ import com.company.entity.Team;
 import com.company.util.Util;
 
 public class GameService {
+
     GameServiceHelper gameServiceHelper = new GameServiceHelper();
     Inning inning1;
     Inning inning2;
