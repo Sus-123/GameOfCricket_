@@ -6,7 +6,7 @@ public class Strike {
 
     /**
      * Strike : Maintain the current players strike on the field
-     * strikeHolder : array of size two to hold player count of striker and batsman a
+     * strikeHolder : array of size two to hold player count of striker and batsman
      *  currentStrike : can be 0 and 1 depend on which index player is batting and which one is balling
      */
 

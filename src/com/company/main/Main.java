@@ -21,15 +21,9 @@ public class Main {
         System.out.println("Enter Team2  name: ");
         String team2Name = util.getValidStringType();
         Team team2 = new Team(team2Name);
-       // System.out.println(team1.getName() + team2.getName());
+
         gameService.initializeNewGame(team1,team2,numOfOver);
-
-
-        //Creating a new match
-       // gameServiceHelper.initializeNewGame();
-
-        //see final score board
-    //    gameServiceHelper.showFinalScoreBoard();
+        gameService.showFinalScoreBoard();
 
     }
 }

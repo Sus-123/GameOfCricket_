@@ -16,5 +16,8 @@ public class Constants {
     public static int ONE = 1;
     public static String BATSMAN = "BATSMAN";
     public static String BOWLER = "BOWLER";
+    public static int MaxBatsmanInTeam = 5;
+    public static int lowerBowlerIndex = 5;
+    public static int upperBowlerIndex = 10;
 
 }

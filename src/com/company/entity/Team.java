@@ -18,8 +18,11 @@ public class Team {
     void setTeamPlayers(String teamName) {
         for (int i = 0; i < Constants.totalPlayerInTeam; i++) {
             String playerName = (teamName + (i+1));
-            String playerType = "BATSMAN";
-
+            String playerType;
+            if(i < Constants.MaxBatsmanInTeam)
+                playerType = Constants.BATSMAN;
+            else
+                playerType = Constants.BOWLER;
             Player p = new Player(playerName, playerType);
             players.add(p);
         }
@@ -38,14 +41,6 @@ public class Team {
     }
 
 
-
-
-//    public void showPlayerWiseScore() {
-//        for (int i = 0; i <= Constants.totalPlayerInTeam; i++) {
-//            Player p = players.get(i);
-//            System.out.println(p);
-//        }
-//    }
 
 
 }

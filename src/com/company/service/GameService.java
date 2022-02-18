@@ -17,8 +17,6 @@ public class GameService {
      */
 
     public void initializeNewGame(Team team1, Team team2, int numOfOver) {
-        //System.out.println(team1.getName() + team2.getName());
-
 
         if(Util.playToss() == Constants.ZERO) {
             inning1 = new Inning(team1, team2, false, 0, numOfOver);
@@ -41,27 +39,46 @@ public class GameService {
     }
 
     public void showFinalScoreBoard () {
+        System.out.println("Score Board : ");
+
+        if(inning1.score > inning2.score) {
+            System.out.println(inning1.battingTeam.getName() + "Won the Match by : " + (inning1.score - inning2.score));
+        } else {
+            System.out.println(inning2.battingTeam.getName() + "Won the Match by : " + (inning2.score - inning1.score));
+        }
+
+        System.out.println();
+        System.out.println("Score Details are: ");
+
+        showDetailsOfInning(inning1);
+        showDetailsOfInning(inning2);
 
     }
 
 
+    public void showDetailsOfInning (Inning inning) {
+        System.out.println("--------------------------------------------");
+        System.out.println(inning.battingTeam.getName() + " : " + inning.score);
+        System.out.println();
 
-//
-//    /**
-//     * initializeTeamPlayer : will instantiate players of each team.
-//     * @param playersName : Name of each player
-//     * @param playersType : Type of each player
-//     */
-//    public void initializeTeamPlayer(List<String> playersName, List<String> playersType, int numberOfPlayer) {
-//        for (int i = 0; i < numberOfPlayer; i++) {
-//            System.out.print("Player-" + i + " Name:");
-//            playersName.add(gameUtil.getValidStringType());
-//            System.out.print("Player-" + i + " Type:");
-//            playersType.add(gameUtil.getPlayerType());
-//        }
-//        //System.out.println("Size of team name" + playersName.size());
-//       // System.out.println("size of type :" + playersType.size());
-//
-//    }
+        System.out.println("Batsman Scores : ");
+        for (int i = 0; i <= inning.getCurrentWicket(); i++) {
+            String playerName = inning.battingTeam.players.get(i).getPlayerName();
+            int playerScore = inning.playersScore.get(i);
+            int playerBallsPlayed = inning.ballsPlayed.get(i);
+            System.out.println(playerName + " : " + playerScore + " On Ball : " + playerBallsPlayed);
+        }
+
+        System.out.println("Bowlers Wickets : ");
+        for (int i = Constants.lowerBowlerIndex; i < Constants.upperBowlerIndex ; i++) {
+            String bowlerName = inning.bowlingTeam.players.get(i).getPlayerName();
+            int wicketTaken = inning.bowlerWicketTaken.get(i);
+            System.out.println(bowlerName + " Wicket : " + wicketTaken);
+        }
+    }
+
+
+
+
 
 }

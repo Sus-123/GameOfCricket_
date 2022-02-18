@@ -1,5 +1,4 @@
 package com.company.entity;
-
 import java.util.ArrayList;
 
 public class Inning {
@@ -10,15 +9,15 @@ public class Inning {
     public int scoreToChase;
     public int numOfOver;
     public int score;
+
     private int currentWicket;
-    public int currentBall;
     public int currentBatsMan;
-    public int getCurrentBowler;
+
     public ArrayList<Integer> playersScore;
     public ArrayList<Integer> ballsPlayed;
+    public ArrayList<Integer>  bowlerWicketTaken;
     public ArrayList<OverDetails> overDetails;
 
-    //private ArrayList<Integer> wicketTaken;
 
     public Inning (Team battingTeam, Team ballingTeam, boolean isChaser, int scoreToChase, int numOfOver) {
 
@@ -29,21 +28,21 @@ public class Inning {
         this.numOfOver = numOfOver;
         this.score = 0;
         this.currentWicket = 0;
-        this.currentBall = 0;
         this.currentBatsMan = 0;
-        //this.getCurrentBowler = 0;
 
-        this.playersScore = new ArrayList<Integer>(11);
-        this.ballsPlayed = new ArrayList<Integer>(11);
+        this.playersScore = new ArrayList<Integer>();
+        this.ballsPlayed = new ArrayList<Integer>();
+        this.bowlerWicketTaken = new ArrayList<>();
+        this.overDetails = new ArrayList<>();
+
         for(int i = 0 ; i < 11; i++) {
             this.playersScore.add(0);
             this.ballsPlayed.add(0);
+            this.bowlerWicketTaken.add(0);
         }
+
     }
 
-    public void increaseCurrentBall() {
-        this.currentBall  += 1;
-    }
 
 
     public int getScore () {
@@ -54,12 +53,9 @@ public class Inning {
         return battingTeam.getCurrentPlayerName(currentPlayerIndex);
     }
 
-
     public void increaseScore(int runs) {
         this.score += runs;
         int prevScore = playersScore.get(currentBatsMan);
-         //System.out.println(score + " " + prevScore);
-       // System.out.println(prevScore);
         this.playersScore.set(currentBatsMan,prevScore + runs);
     }
 
@@ -75,8 +71,7 @@ public class Inning {
         return  this.currentWicket;
     }
 
-//    public void increaseBallsPlayed (int currentPlayerIndex) {
-//        playersScore.set(currentPlayerIndex,ballsPlayed.get(currentPlayerIndex)+1);
-//    }
+
+
 
 }

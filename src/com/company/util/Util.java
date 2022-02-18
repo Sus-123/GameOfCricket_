@@ -1,5 +1,7 @@
 package com.company.util;
 import com.company.Constants;
+
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -48,21 +50,6 @@ public class Util {
                 break;
         }
         return io;
-//        String io;
-//        while (true) {
-//            try {
-//                io = sc.nextLine();
-//                if ( io.isEmpty()) {
-//                    System.out.println("Enter non-empty String");
-//                }
-//                else
-//                    break;
-//            } catch (InvalidStreamException e) {
-//                System.out.println("Enter valid String");
-//            }
-//        }
-//
-//        return io;
     }
 
     /**
@@ -95,5 +82,12 @@ public class Util {
     public static int getRandomRun() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerRunBound, Constants.upperRunBound);
     }
+
+    public static int getRandomBowler() {
+        Random random = new Random();
+        return random.ints(5, 10).findFirst().getAsInt();
+    }
+
+
 
 }
