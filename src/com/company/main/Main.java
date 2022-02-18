@@ -23,7 +23,7 @@ public class Main {
         Team team2 = new Team(team2Name);
 
         gameService.initializeNewGame(team1,team2,numOfOver);
-        gameService.showFinalScoreBoard();
+       // gameService.showFinalScoreBoard();
 
     }
 }

@@ -1,5 +1,9 @@
 package com.company.util;
 import com.company.Constants;
+import com.company.entity.BallType;
+import com.company.entity.Inning;
+import com.company.entity.OverDetails;
+import com.company.entity.Player;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -7,14 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Util {
-    Scanner sc = new Scanner(System.in);
-    UtilHelper helper = new UtilHelper();
-
-    /**
-     * getIntegerInput : take user input from Helper class and validates it
-     * @param lower : lower bound of overs to be played
-     * @param upper : upper bound of overs to be played.
-     */
+     Scanner sc = new Scanner(System.in);
+     UtilHelper helper = new UtilHelper();
      public  int getIntegerInput(int lower, int upper) {
         int io = helper.getIntegerInput();
         while(true) {
@@ -34,10 +32,6 @@ public class Util {
         return io;
     }
 
-    /**
-     * getValidStringType : takes valid user input from Helper class and validates it
-     */
-
     public String getValidStringType () {
         String io = "";
         io = helper.getStringInput();
@@ -52,33 +46,11 @@ public class Util {
         return io;
     }
 
-    /**
-     * getValidStringType : takes type of each player and check if its Batsman or baller
-     */
-    public String getPlayerType() {
-        String io = "";
-        while(true){
-            io = sc.nextLine().toUpperCase();
-            if(io.equals("BATSMAN") || io.equals("BOWLER")) {
-                return io;
-            }
-            else
-                System.out.println("Enter Valid Type, BATSMAN or BOWLER only");
-        }
-
-    }
-
-    /**
-     * playToss : play toss to decide which team will go first
-     */
-
     public static int playToss() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerTossBound,Constants.upperTossBound);
     }
 
-    /**
-     * getRandomRun : generates random run for the player
-     */
+
     public static int getRandomRun() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerRunBound, Constants.upperRunBound);
     }
@@ -88,6 +60,48 @@ public class Util {
         return random.ints(5, 10).findFirst().getAsInt();
     }
 
+    public static int getTotalWicketOut(Inning inning) {
+         int wicketCount = 0;
+         for (int i = 0; i <inning.getOverDetails().size() ; i++) {
+            OverDetails currentOverDetails = inning.getOverDetails().get(i);
+
+            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
+                if (currentOverDetails.getBallDetails().get(j).getBallType() == BallType.WICKET) {
+                    wicketCount ++;
+                }
+            }
+        }
+        return  wicketCount;
+    }
+
+    public static int getScoreOfInning(Inning inning) {
+         int score = 0;
+         for (int i = 0; i <inning.getOverDetails().size() ; i++) {
+            OverDetails currentOverDetails = inning.getOverDetails().get(i);
+
+            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
+                score += currentOverDetails.getBallDetails().get(j).getScoreOnBall();
+            }
+        }
+        return  score;
+    }
+
+    public static int getPlayerWiseScore(int player, Inning inning) {
+        int score = 0;
+        Player p = inning.getBattingTeam().getPlayers().get(player);
+        for (int i = 0; i <inning.getOverDetails().size() ; i++) {
+            OverDetails currentOverDetails = inning.getOverDetails().get(i);
+
+            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
+
+                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall() == p ) {
+                    score += currentOverDetails.getBallDetails().get(j).getScoreOnBall();
+
+                }
+            }
+        }
+        return  score;
+    }
 
 
 }

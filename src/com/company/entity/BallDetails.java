@@ -2,13 +2,51 @@ package com.company.entity;
 
 public class BallDetails {
 
-    public boolean isWideBall;
-    public boolean isNoBall;
+    private BallType ballType;
 
-    public Player batsmanOnBall;
-    public Player strikerOnBall ;
-    public int scoreOnBall;
-    public boolean isWicket;
+    private Player bowlerOnBall;
+    private Player strikerOnBall;
+    private int scoreOnBall;
+
+    public BallDetails () {
+        this.scoreOnBall = 0;
+    }
 
 
+
+
+
+
+    public Player getBowlerOnBall() {
+        return bowlerOnBall;
+    }
+
+    public void setBowlerOnBall(Player bowlerOnBall) {
+        this.bowlerOnBall = bowlerOnBall;
+    }
+
+    public Player getStrikerOnBall() {
+        return strikerOnBall;
+    }
+
+    public void setStrikerOnBall(Player strikerOnBall) {
+        this.strikerOnBall = strikerOnBall;
+    }
+
+    public int getScoreOnBall() {
+        return scoreOnBall;
+    }
+
+    public void setScoreOnBall(int scoreOnBall) {
+        this.scoreOnBall = scoreOnBall;
+    }
+
+
+    public BallType getBallType() {
+        return ballType;
+    }
+
+    public void setBallType(BallType ballType) {
+        this.ballType = ballType;
+    }
 }

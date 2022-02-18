@@ -1,22 +1,21 @@
 package com.company.service;
 import com.company.Constants;
 import com.company.entity.BallDetails;
+import com.company.entity.BallType;
 import com.company.entity.Inning;
 import com.company.entity.OverDetails;
-import com.company.entity.Strike;
 import com.company.util.Util;
 
 public class GameServiceHelper {
 
 
-
     public void playInning (Inning inning) {
-        System.out.println("Team " + inning.battingTeam.getName() + " Started the match ");
-        Strike strike = new Strike();
+
+        System.out.println("Team " + inning.getBattingTeam().getName() + " Started the match ");
 
         Boolean allOut = false;
 
-        for (int i = Constants.ONE; i <= inning.numOfOver; i++) {
+        for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
 
             System.out.println("Playing Over: " + i);
 
@@ -24,68 +23,73 @@ public class GameServiceHelper {
             OverDetails overDetails = new OverDetails();
 
             int currentBowlerIndex = Util.getRandomBowler();
-            overDetails.bowler = inning.bowlingTeam.players.get(currentBowlerIndex);
+            overDetails.setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
 
             //playing each ball
             for (int j = Constants.ONE; j <= Constants.totalBallInOver; j++) {
 
                 // for each ball there will be a new instance of ballDetails.
-                BallDetails ballDetails = new BallDetails();
-                inning.currentBatsMan = strike.getCurrentStrike();
-                allOut = playBall( inning, ballDetails, j, currentBowlerIndex, strike);
-
+                BallDetails ballDetails = playBall( inning , j, currentBowlerIndex);
                 //add particular ball details, after ball being played into over details
-                overDetails.ballDetails.add(ballDetails);
+                overDetails.getBallDetails().add(ballDetails);
 
-                if (allOut || (inning.isChaser && (inning.scoreToChase < inning.getScore()))) {
+                if(Constants.totalPlayerInTeam-1 == Util.getTotalWicketOut(inning) ) {
+                    allOut = true;
+                }
+
+
+
+
+                if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning) ))) {
                    break;
                 }
             }
 
-            if (allOut || (inning.isChaser && (inning.scoreToChase < inning.getScore()))) {
+            if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning)))) {
                break;
             }
 
-            strike.changeStrikeOnOver();
-            inning.overDetails.add(overDetails);
+            inning.strike.changeStrikeOnOver();
+            inning.setOverDetails(overDetails);
         }
 
     }
 
 
-    boolean playBall( Inning inning, BallDetails ballDetails, int currentBall, int currentBowlerIndex, Strike strike) {
+    BallDetails playBall( Inning inning, int currentBall, int currentBowlerIndex) {
 
+        BallDetails ballDetails = new BallDetails();
         int runs = Util.getRandomRun() ;
 
         //setting two parameters of this particular ball : batsman and striker.
-        ballDetails.batsmanOnBall = inning.battingTeam.players.get(inning.currentBatsMan);
-        ballDetails.strikerOnBall = inning.battingTeam.players.get(strike.getCurrentStrike());
+        ballDetails.setStrikerOnBall(inning.getBattingTeam().getPlayers().get(inning.strike.getCurrentStrike()));
+        ballDetails.setBowlerOnBall(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
 
         //player hit a run
         if (runs < 7) {
-            System.out.println(currentBall + ": " + runs + " Runs by " + inning.getPlayerName(inning.currentBatsMan));
-            inning.increaseScore(runs);
-            strike.changeStrikeOnRun(runs);
+            System.out.println(currentBall + " : " + runs + " Runs by " + ballDetails.getStrikerOnBall().getPlayerName());
+           // inning.increaseScore(runs);
+            inning.strike.changeStrikeOnRun(runs);
 
             //setting the parameters  e.g.score,type for this particular ball.
-            ballDetails.scoreOnBall = runs;
-            ballDetails.isWicket = false;
-            return  false ;
+            ballDetails.setScoreOnBall(runs);
+            ballDetails.setBallType(BallType.RUN);
+            return  ballDetails;
         }
 
         // score , type will be different, if players get out.
-        ballDetails.scoreOnBall = 0;
-        ballDetails.isWicket = true;
+        ballDetails.setScoreOnBall(0);
+        ballDetails.setBallType(BallType.WICKET);
 
         //inning.increaseBowlerWicketTaken();
-        inning.bowlerWicketTaken.set(currentBowlerIndex, inning.bowlerWicketTaken.get(currentBowlerIndex)+1);
+       // inning.bowlerWicketTaken.set(currentBowlerIndex, inning.bowlerWicketTaken.get(currentBowlerIndex)+1);
 
-        int outPlayer = strike.changeStrikeOnWicket();
-        System.out.println("Player " + inning.getPlayerName(outPlayer) + " Out with " + inning.getPlayerScore(outPlayer) );
-        inning.increaseWicket();
+        int outPlayer = inning.strike.changeStrikeOnWicket();
+        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + Util.getPlayerWiseScore(outPlayer,inning) );
+        //inning.increaseWicket();
 
-        if(Constants.totalPlayerInTeam-1 == inning.getCurrentWicket()) return true;
-        return  false ;
+
+        return  ballDetails ;
 
     }
 

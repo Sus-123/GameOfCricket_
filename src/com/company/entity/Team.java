@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class Team {
 
     private  String teamName;
-    public ArrayList<Player> players;
+    private ArrayList<Player> players;
 
     public Team(String teamName) {
         this.teamName = teamName;
-        players = new ArrayList<>();
+        setPlayers(new ArrayList<>());
         setTeamPlayers(teamName);
     }
 
@@ -24,7 +24,7 @@ public class Team {
             else
                 playerType = Constants.BOWLER;
             Player p = new Player(playerName, playerType);
-            players.add(p);
+            getPlayers().add(p);
         }
     }
 
@@ -37,10 +37,11 @@ public class Team {
     }
 
     public String getCurrentPlayerName (int currentPlayerIndex) {
-        return players.get(currentPlayerIndex).getPlayerName();
+        return getPlayers().get(currentPlayerIndex).getPlayerName();
     }
 
 
-
-
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
 }
