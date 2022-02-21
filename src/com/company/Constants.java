@@ -18,6 +18,6 @@ public class Constants {
     public static String BOWLER = "BOWLER";
     public static int MaxBatsmanInTeam = 5;
     public static int lowerBowlerIndex = 5;
-    public static int upperBowlerIndex = 10;
+    public static int upperBowlerIndex = 11;
 
 }

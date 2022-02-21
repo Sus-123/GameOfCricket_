@@ -2,6 +2,7 @@ package com.company.entity;
 import com.company.Constants;
 
 public class Player {
+
     private String playerName ;
     private PlayerType playerType;
 
@@ -16,6 +17,9 @@ public class Player {
     }
     public String getPlayerName() {
         return playerName;
+    }
+    public PlayerType getPlayerType () {
+        return this.playerType;
     }
 
 

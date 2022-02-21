@@ -12,11 +12,6 @@ public class BallDetails {
         this.scoreOnBall = 0;
     }
 
-
-
-
-
-
     public Player getBowlerOnBall() {
         return bowlerOnBall;
     }

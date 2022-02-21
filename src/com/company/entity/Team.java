@@ -11,7 +11,7 @@ public class Team {
 
     public Team(String teamName) {
         this.teamName = teamName;
-        setPlayers(new ArrayList<>());
+        players = new ArrayList<>();
         setTeamPlayers(teamName);
     }
 
@@ -24,7 +24,7 @@ public class Team {
             else
                 playerType = Constants.BOWLER;
             Player p = new Player(playerName, playerType);
-            getPlayers().add(p);
+            players.add(p);
         }
     }
 
@@ -36,12 +36,9 @@ public class Team {
         return players;
     }
 
-    public String getCurrentPlayerName (int currentPlayerIndex) {
-        return getPlayers().get(currentPlayerIndex).getPlayerName();
-    }
+//    public String getCurrentPlayerName (int currentPlayerIndex) {
+//        return players.get(currentPlayerIndex).getPlayerName();
+//    }
 
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
 }

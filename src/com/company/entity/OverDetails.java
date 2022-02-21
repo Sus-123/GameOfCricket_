@@ -6,7 +6,7 @@ public class OverDetails {
     private ArrayList<BallDetails> ballDetails;
 
     public OverDetails() {
-        setBallDetails(new ArrayList<>());
+        ballDetails = new ArrayList<BallDetails>();
     }
 
     public Player getBowler() {
@@ -21,7 +21,5 @@ public class OverDetails {
         return ballDetails;
     }
 
-    public void setBallDetails(ArrayList<BallDetails> ballDetails) {
-        this.ballDetails = ballDetails;
-    }
+
 }

@@ -1,9 +1,6 @@
 package com.company.util;
 import com.company.Constants;
-import com.company.entity.BallType;
-import com.company.entity.Inning;
-import com.company.entity.OverDetails;
-import com.company.entity.Player;
+import com.company.entity.*;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -11,7 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Util {
-     Scanner sc = new Scanner(System.in);
+
+
      UtilHelper helper = new UtilHelper();
      public  int getIntegerInput(int lower, int upper) {
         int io = helper.getIntegerInput();
@@ -56,8 +54,10 @@ public class Util {
     }
 
     public static int getRandomBowler() {
-        Random random = new Random();
-        return random.ints(5, 10).findFirst().getAsInt();
+        return ThreadLocalRandom.current().nextInt(Constants.lowerBowlerIndex, Constants.upperBowlerIndex);
+        //Random random = new Random();
+        //return random.ints(5, 10).findFirst().getAsInt();
+
     }
 
     public static int getTotalWicketOut(Inning inning) {
@@ -66,7 +66,8 @@ public class Util {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
 
             for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-                if (currentOverDetails.getBallDetails().get(j).getBallType() == BallType.WICKET) {
+                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
+                if (currentBallDetails.getBallType() == BallType.WICKET) {
                     wicketCount ++;
                 }
             }
@@ -75,20 +76,25 @@ public class Util {
     }
 
     public static int getScoreOfInning(Inning inning) {
+
          int score = 0;
          for (int i = 0; i <inning.getOverDetails().size() ; i++) {
+
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
 
             for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-                score += currentOverDetails.getBallDetails().get(j).getScoreOnBall();
+                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
+                score += currentBallDetails.getScoreOnBall();
             }
         }
         return  score;
     }
 
-    public static int getPlayerWiseScore(int player, Inning inning) {
+
+    public static int getPlayerWiseScore(Player p, Inning inning) {
+
         int score = 0;
-        Player p = inning.getBattingTeam().getPlayers().get(player);
+       // Player p = inning.getBattingTeam().getPlayers().get(player);
         for (int i = 0; i <inning.getOverDetails().size() ; i++) {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
 
@@ -102,6 +108,48 @@ public class Util {
         }
         return  score;
     }
+
+    public static int getTotalBallsPlayed (Player player, Inning inning) {
+         int balls = 0;
+
+        for (int i = 0; i < inning.getOverDetails().size(); i++) {
+            OverDetails currentOverDetails = inning.getOverDetails().get(i);
+
+            for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
+                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
+
+                if(currentBallDetails.getStrikerOnBall() == player) {
+                    balls ++;
+                }
+
+            }
+
+        }
+        return  balls;
+    }
+
+    public static int getWicketTakenByBowler (Player player, Inning inning) {
+
+        int wicketTaken = 0;
+
+        for (int i = 0; i < inning.getOverDetails().size(); i++) {
+            OverDetails currentOverDetails = inning.getOverDetails().get(i);
+
+            for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
+                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
+
+                if(currentBallDetails.getBowlerOnBall() == player && currentBallDetails.getBallType() == BallType.WICKET) {
+                    wicketTaken ++;
+                }
+
+            }
+
+        }
+        return  wicketTaken;
+
+
+    }
+
 
 
 }

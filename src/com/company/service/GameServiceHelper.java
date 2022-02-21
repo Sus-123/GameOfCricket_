@@ -1,9 +1,6 @@
 package com.company.service;
 import com.company.Constants;
-import com.company.entity.BallDetails;
-import com.company.entity.BallType;
-import com.company.entity.Inning;
-import com.company.entity.OverDetails;
+import com.company.entity.*;
 import com.company.util.Util;
 
 public class GameServiceHelper {
@@ -12,47 +9,35 @@ public class GameServiceHelper {
     public void playInning (Inning inning) {
 
         System.out.println("Team " + inning.getBattingTeam().getName() + " Started the match ");
-
         Boolean allOut = false;
 
         for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
-
-            System.out.println("Playing Over: " + i);
-
-            //new overDetails will be initialised with each over
-            OverDetails overDetails = new OverDetails();
-
             int currentBowlerIndex = Util.getRandomBowler();
-            overDetails.setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
+            if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning)))) {
+                return ;
+            }
+
+            System.out.println("Playing Over: " + i + " Bowler is: " + inning.getBowlingTeam().getPlayers().get(currentBowlerIndex).getPlayerName());
+            OverDetails overDetails = new OverDetails();
+            inning.setOverDetails(overDetails);
+
+            //set bowler for this inning
+            inning.getOverDetails().get(i-1).setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
 
             //playing each ball
             for (int j = Constants.ONE; j <= Constants.totalBallInOver; j++) {
-
-                // for each ball there will be a new instance of ballDetails.
-                BallDetails ballDetails = playBall( inning , j, currentBowlerIndex);
-                //add particular ball details, after ball being played into over details
-                overDetails.getBallDetails().add(ballDetails);
-
                 if(Constants.totalPlayerInTeam-1 == Util.getTotalWicketOut(inning) ) {
                     allOut = true;
                 }
-
-
-
-
                 if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning) ))) {
-                   break;
+                    break;
                 }
+                BallDetails ballDetails = playBall( inning, j, currentBowlerIndex);
+                //add particular ball details, after ball being played into over details
+                inning.getOverDetails().get(i-1).getBallDetails().add(ballDetails);
             }
-
-            if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning)))) {
-               break;
-            }
-
             inning.strike.changeStrikeOnOver();
-            inning.setOverDetails(overDetails);
         }
-
     }
 
 
@@ -81,13 +66,9 @@ public class GameServiceHelper {
         ballDetails.setScoreOnBall(0);
         ballDetails.setBallType(BallType.WICKET);
 
-        //inning.increaseBowlerWicketTaken();
-       // inning.bowlerWicketTaken.set(currentBowlerIndex, inning.bowlerWicketTaken.get(currentBowlerIndex)+1);
-
         int outPlayer = inning.strike.changeStrikeOnWicket();
-        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + Util.getPlayerWiseScore(outPlayer,inning) );
-        //inning.increaseWicket();
-
+        Player p = inning.getBattingTeam().getPlayers().get(outPlayer);
+        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + Util.getPlayerWiseScore(p,inning) );
 
         return  ballDetails ;
 

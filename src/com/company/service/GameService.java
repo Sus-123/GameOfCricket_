@@ -1,8 +1,6 @@
 package com.company.service;
 import com.company.Constants;
-import com.company.entity.Inning;
-import com.company.entity.Strike;
-import com.company.entity.Team;
+import com.company.entity.*;
 import com.company.util.Util;
 
 public class GameService {
@@ -26,6 +24,7 @@ public class GameService {
             gameServiceHelper.playInning(inning1);
             System.out.println(team1.getName() + " ended game with " + Util.getScoreOfInning(inning1));
 
+
             Strike strike2 = new Strike();
             inning2 = new Inning(team2, team1, true, Util.getScoreOfInning(inning1), numOfOver, strike2);
             gameServiceHelper.playInning(inning2);
@@ -46,47 +45,51 @@ public class GameService {
 
 
 
-//    public void showFinalScoreBoard () {
-//        System.out.println("Score Board : ");
-//
-//        if(inning1.score > inning2.score) {
-//            System.out.println(inning1.battingTeam.getName() + "Won the Match by : " + (inning1.score - inning2.score));
-//        } else {
-//            System.out.println(inning2.battingTeam.getName() + "Won the Match by : " + (inning2.score - inning1.score));
-//        }
-//
+    public void showFinalScoreBoard () {
+        System.out.println("--------------------------------------------");
+        System.out.println("--------------------------------------------");
+
+        System.out.println("Final Result : ");
+        int scoreOfInning1 = Util.getScoreOfInning(inning1);
+        int scoreOfInning2 = Util.getScoreOfInning(inning2);
+
+        if( scoreOfInning1 > scoreOfInning2 ) {
+            System.out.println(inning1.getBattingTeam().getName() + "Won the Match by : " + (scoreOfInning1 - scoreOfInning2));
+        } else if (scoreOfInning1 < scoreOfInning2 ){
+            System.out.println(inning2.getBattingTeam().getName() + "Won the Match by : " + (scoreOfInning2 - scoreOfInning1));
+        } else {
+            System.out.println(" Match Draw with : " + scoreOfInning1 +" Run");
+        }
+
+        showDetailsOfInning(inning1, inning2);
+        showDetailsOfInning(inning2, inning1);
+    }
+
+
+
+    public void showDetailsOfInning (Inning inning1, Inning inning2) {
+        System.out.println("--------------------------------------------");
+        System.out.println(inning1.getBattingTeam().getName() + " : " + Util.getScoreOfInning(inning1));
+        System.out.println("Batsman Scores : ");
+
+        //batsman details
+        System.out.println("PlayerName\t PlayerType\t  Runs\t BallsPlayed\t WicketTaken");
+        for (int i = 0; i <= 10; i++) {
+            Player player = inning1.getBattingTeam().getPlayers().get(i);
+            System.out.println(player.getPlayerName() +"\t\t " +  player.getPlayerType() + "\t\t " + Util.getPlayerWiseScore(player,inning1) + " \t\t" + Util.getTotalBallsPlayed(player, inning1) + " \t\t" + Util.getWicketTakenByBowler(player,inning2));
+        }
+
+
 //        System.out.println();
-//        System.out.println("Score Details are: ");
 //
-//        showDetailsOfInning(inning1);
-//        showDetailsOfInning(inning2);
-//
-//    }
-//
-//
-//    public void showDetailsOfInning (Inning inning) {
-//        System.out.println("--------------------------------------------");
-//        System.out.println(inning.battingTeam.getName() + " : " + inning.score);
-//        System.out.println();
-//
-//        System.out.println("Batsman Scores : ");
-//        for (int i = 0; i <= inning.getCurrentWicket(); i++) {
-//            String playerName = inning.battingTeam.players.get(i).getPlayerName();
-//            int playerScore = inning.playersScore.get(i);
-//            int playerBallsPlayed = inning.ballsPlayed.get(i);
-//            System.out.println(playerName + " : " + playerScore + " On Ball : " + playerBallsPlayed);
-//        }
-//
-//        System.out.println("Bowlers Wickets : ");
-//        for (int i = Constants.lowerBowlerIndex; i < Constants.upperBowlerIndex ; i++) {
-//            String bowlerName = inning.bowlingTeam.players.get(i).getPlayerName();
-//            int wicketTaken = inning.bowlerWicketTaken.get(i);
-//            System.out.println(bowlerName + " Wicket : " + wicketTaken);
-//        }
-//    }
-
-
-
-
+//        //bowler details
+//        System.out.println("Bowler Name \t   PlayerType \t Wicket Taken");
+//        for (int i = 0; i <= 10; i++) {
+//            Player player = inning1.getBowlingTeam().getPlayers().get(i);
+//            if(player.getPlayerType() == PlayerType.BOWLER) {
+//                System.out.println(player.getPlayerName() +" " +  player.getPlayerType() + " " + Util.getWicketTakenByBowler(player,inning1));
+//            }
+//       }
+    }
 
 }
