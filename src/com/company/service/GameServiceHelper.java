@@ -46,9 +46,8 @@ public class GameServiceHelper {
         BallDetails ballDetails = new BallDetails();
         int runs = Util.getRandomRun() ;
 
-        //setting two parameters of this particular ball : batsman and striker.
+        //setting  parameters of this particular ball : striker.
         ballDetails.setStrikerOnBall(inning.getBattingTeam().getPlayers().get(inning.strike.getCurrentStrike()));
-        ballDetails.setBowlerOnBall(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
 
         //player hit a run
         if (runs < 7) {

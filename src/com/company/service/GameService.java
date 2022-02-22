@@ -70,7 +70,7 @@ public class GameService {
     public void showDetailsOfInning (Inning inning1, Inning inning2) {
         System.out.println("--------------------------------------------");
         System.out.println(inning1.getBattingTeam().getName() + " : " + Util.getScoreOfInning(inning1));
-        System.out.println("Batsman Scores : ");
+        //System.out.println("Batsman Scores : ");
 
         //batsman details
         System.out.println("PlayerName\t PlayerType\t  Runs\t BallsPlayed\t WicketTaken");
@@ -78,18 +78,6 @@ public class GameService {
             Player player = inning1.getBattingTeam().getPlayers().get(i);
             System.out.println(player.getPlayerName() +"\t\t " +  player.getPlayerType() + "\t\t " + Util.getPlayerWiseScore(player,inning1) + " \t\t" + Util.getTotalBallsPlayed(player, inning1) + " \t\t" + Util.getWicketTakenByBowler(player,inning2));
         }
-
-
-//        System.out.println();
-//
-//        //bowler details
-//        System.out.println("Bowler Name \t   PlayerType \t Wicket Taken");
-//        for (int i = 0; i <= 10; i++) {
-//            Player player = inning1.getBowlingTeam().getPlayers().get(i);
-//            if(player.getPlayerType() == PlayerType.BOWLER) {
-//                System.out.println(player.getPlayerName() +" " +  player.getPlayerType() + " " + Util.getWicketTakenByBowler(player,inning1));
-//            }
-//       }
     }
 
 }

@@ -4,7 +4,7 @@ public class BallDetails {
 
     private BallType ballType;
 
-    private Player bowlerOnBall;
+    //private Player bowlerOnBall;
     private Player strikerOnBall;
     private int scoreOnBall;
 
@@ -12,13 +12,13 @@ public class BallDetails {
         this.scoreOnBall = 0;
     }
 
-    public Player getBowlerOnBall() {
-        return bowlerOnBall;
-    }
+//    public Player getBowlerOnBall() {
+//        return bowlerOnBall;
+//    }
 
-    public void setBowlerOnBall(Player bowlerOnBall) {
-        this.bowlerOnBall = bowlerOnBall;
-    }
+//    public void setBowlerOnBall(Player bowlerOnBall) {
+//        this.bowlerOnBall = bowlerOnBall;
+//    }
 
     public Player getStrikerOnBall() {
         return strikerOnBall;

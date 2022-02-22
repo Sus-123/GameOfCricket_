@@ -9,8 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
 
-
-     UtilHelper helper = new UtilHelper();
+     static UtilHelper helper = new UtilHelper();
      public  int getIntegerInput(int lower, int upper) {
         int io = helper.getIntegerInput();
         while(true) {
@@ -50,8 +49,12 @@ public class Util {
 
 
     public static int getRandomRun() {
-        return ThreadLocalRandom.current().nextInt(Constants.lowerRunBound, Constants.upperRunBound);
-    }
+        int [] numbers= helper.getIntegerArray();
+        int ix = ThreadLocalRandom.current().nextInt(0, 100);
+        //int ix = (int)(Rand() * 100);
+        int num = numbers[ix];
+        return num;
+     }
 
     public static int getRandomBowler() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerBowlerIndex, Constants.upperBowlerIndex);
@@ -129,27 +132,20 @@ public class Util {
     }
 
     public static int getWicketTakenByBowler (Player player, Inning inning) {
-
         int wicketTaken = 0;
-
         for (int i = 0; i < inning.getOverDetails().size(); i++) {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
-
+            Player bowler = currentOverDetails.getBowler();
+            if(bowler != player) continue;
             for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
                 BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
-
-                if(currentBallDetails.getBowlerOnBall() == player && currentBallDetails.getBallType() == BallType.WICKET) {
+                if(currentBallDetails.getBallType() == BallType.WICKET) {
                     wicketTaken ++;
                 }
 
             }
-
         }
         return  wicketTaken;
-
-
-    }
-
-
+     }
 
 }
