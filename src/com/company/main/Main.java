@@ -10,8 +10,8 @@ public class Main {
 
         Util util = new Util();
         GameService gameService = new GameService();
-        Database database = new Database();
-        database.makeConnection();
+        //Database database = new Database();
+      //  database.makeConnection();
 
         System.out.println("Enter Number Of overs to be played, it can be between 1 to 50");
         int numOfOver = util.getIntegerInput(Constants.loweBoundOfOver,Constants.upperBoundOfOver);
