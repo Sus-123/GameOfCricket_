@@ -15,11 +15,18 @@ public class Player {
             playerType = PlayerType.BOWLER;
         }
     }
+
     public String getPlayerName() {
         return playerName;
     }
     public PlayerType getPlayerType () {
         return this.playerType;
+    }
+
+    public String getPlayerTypeInString () {
+        if(playerType == PlayerType.BATSMAN)
+            return  "BATSMAN";
+        return "BOWLER";
     }
 
 

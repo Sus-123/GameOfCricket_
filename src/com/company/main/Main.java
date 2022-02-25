@@ -1,17 +1,17 @@
 package com.company.main;
 import com.company.Constants;
-import com.company.database.Database;
 import com.company.entity.Team;
 import com.company.service.GameService;
 import com.company.util.Util;
 
+import java.sql.SQLException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         Util util = new Util();
         GameService gameService = new GameService();
-        //Database database = new Database();
-      //  database.makeConnection();
+
 
         System.out.println("Enter Number Of overs to be played, it can be between 1 to 50");
         int numOfOver = util.getIntegerInput(Constants.loweBoundOfOver,Constants.upperBoundOfOver);

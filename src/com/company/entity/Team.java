@@ -3,7 +3,6 @@ package com.company.entity;
 import com.company.Constants;
 import java.util.ArrayList;
 
-
 public class Team {
 
     private  String teamName;
@@ -36,9 +35,6 @@ public class Team {
         return players;
     }
 
-//    public String getCurrentPlayerName (int currentPlayerIndex) {
-//        return players.get(currentPlayerIndex).getPlayerName();
-//    }
 
 
 }

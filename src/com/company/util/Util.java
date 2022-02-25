@@ -60,8 +60,7 @@ public class Util {
         return ThreadLocalRandom.current().nextInt(Constants.lowerBowlerIndex, Constants.upperBowlerIndex);
         //Random random = new Random();
         //return random.ints(5, 10).findFirst().getAsInt();
-
-    }
+     }
 
     public static int getTotalWicketOut(Inning inning) {
          int wicketCount = 0;
@@ -147,5 +146,7 @@ public class Util {
         }
         return  wicketTaken;
      }
+
+
 
 }
