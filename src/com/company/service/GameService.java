@@ -1,7 +1,9 @@
 package com.company.service;
 import com.company.Constants;
-import com.company.database.DbOperations;
 import com.company.entity.*;
+import com.company.repozitory.InningRepository;
+import com.company.repozitory.MatchRepository;
+import com.company.repozitory.TeamRepository;
 import com.company.scoreboard.ScoreBoard;
 import com.company.util.Util;
 
@@ -21,13 +23,18 @@ public class GameService {
      */
 
     public void initializeNewGame(Team team1, Team team2, int numOfOver) throws SQLException, ClassNotFoundException {
-        int team1Id = DbOperations.insertTeamInDb(team1);
-        int team2Id = DbOperations.insertTeamInDb(team2);
-        int matchId = DbOperations.insertMatchInDb(team1Id,team2Id,numOfOver);
+
+        int team1Id = TeamRepository.insertTeam(team1);
+        int team2Id = TeamRepository.insertTeam(team2);
+
+        int inning1Id = InningRepository.insertInning(team1Id, team2Id, numOfOver);
+        int inning2Id = InningRepository.insertInning(team2Id, team1Id, numOfOver);
+
+        MatchRepository.insertMatch(inning1Id, inning2Id);
+
 
         if(Util.playToss() == Constants.ZERO) {
-            int inning1Id = DbOperations.insertInningInDb(matchId);
-            int inning2Id = DbOperations.insertInningInDb(matchId);
+
 
             Strike strike1 = new Strike();
             inning1 = new Inning(team1, team2, false, 0, numOfOver, strike1);
@@ -42,10 +49,6 @@ public class GameService {
 
         }
         else {
-
-            int inning1Id = DbOperations.insertInningInDb(matchId);
-            int inning2Id = DbOperations.insertInningInDb(matchId);
-
 
             Strike strike1 = new Strike();
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);

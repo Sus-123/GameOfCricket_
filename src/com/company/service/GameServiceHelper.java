@@ -1,13 +1,13 @@
 package com.company.service;
 import com.company.Constants;
-import com.company.database.DbOperations;
 import com.company.entity.*;
+import com.company.repozitory.BallDetailsRepository;
+import com.company.repozitory.OverDetailsRepository;
 import com.company.util.Util;
 
 import java.sql.SQLException;
 
 public class GameServiceHelper {
-
 
 
     public void playInning (Inning inning, int inningId) throws SQLException, ClassNotFoundException {
@@ -28,12 +28,10 @@ public class GameServiceHelper {
             OverDetails overDetails = new OverDetails();
             inning.setOverDetails(overDetails);
 
-            int overDetailsId = DbOperations.insertOverInDb(inningId, bowlerName, inning.getBowlingTeam().getName());
+            int overDetailsId = OverDetailsRepository.insertOverDetails(inningId, bowlerName, inning.getBowlingTeam().getName());
 
-            //set bowler for this inning
             inning.getOverDetails().get(i-1).setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
 
-            //playing each ball
             for (int j = Constants.ONE; j <= Constants.totalBallInOver; j++) {
                 if(Constants.totalPlayerInTeam-1 == Util.getTotalWicketOut(inning) ) {
                     allOut = true;
@@ -41,41 +39,35 @@ public class GameServiceHelper {
                 if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning) ))) {
                     break;
                 }
-                BallDetails ballDetails = playBall( inning, j, currentBowlerIndex);
-                //add particular ball details, after ball being played into over details
+                BallDetails ballDetails = handleBall( inning, j, currentBowlerIndex);
                 inning.getOverDetails().get(i-1).getBallDetails().add(ballDetails);
 
-                // add into db
-                DbOperations.insertBallDetailsInDb(ballDetails, overDetailsId, inning.getBattingTeam().getName());
+                BallDetailsRepository.insertBallDetails(ballDetails, overDetailsId, inning.getBattingTeam().getName(), inningId);
 
             }
 
             inning.strike.changeStrikeOnOver();
         }
+
     }
 
 
-    BallDetails playBall( Inning inning, int currentBall, int currentBowlerIndex) {
+    BallDetails handleBall( Inning inning, int currentBall, int currentBowlerIndex) {
 
         BallDetails ballDetails = new BallDetails();
         int runs = Util.getRandomRun() ;
 
-        //setting  parameters of this particular ball : striker.
         ballDetails.setStrikerOnBall(inning.getBattingTeam().getPlayers().get(inning.strike.getcurrentStriker()));
 
-        //player hit a run
         if (runs < 7) {
             System.out.println(currentBall + " : " + runs + " Runs by " + ballDetails.getStrikerOnBall().getPlayerName());
-           // inning.increaseScore(runs);
             inning.strike.changeStrikeOnRun(runs);
 
-            //setting the parameters  e.g.score,type for this particular ball.
             ballDetails.setScoreOnBall(runs);
             ballDetails.setBallType(BallType.RUN);
             return  ballDetails;
         }
 
-        // score , type will be different, if players get out.
         ballDetails.setScoreOnBall(0);
         ballDetails.setBallType(BallType.WICKET);
 

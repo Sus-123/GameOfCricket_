@@ -14,7 +14,7 @@ public class Team {
         setTeamPlayers(teamName);
     }
 
-    void setTeamPlayers(String teamName) {
+    private void setTeamPlayers(String teamName) {
         for (int i = 0; i < Constants.totalPlayerInTeam; i++) {
             String playerName = (teamName + (i+1));
             String playerType;

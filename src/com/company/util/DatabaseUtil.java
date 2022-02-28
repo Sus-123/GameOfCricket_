@@ -16,16 +16,15 @@ public class DatabaseUtil {
 
        String playerName = "'" + player + "'";
        String teamId = "'" + team_Id + "'";
-
-       String query = "SELECT FROM Players where Team_Id = " + teamId + " and Player_Name = " + playerName;
+       String query = "SELECT * FROM CrecketMatch.PlayersTable where TeamId = " + teamId + " and PlayerName = " + playerName;
 
        Statement st = connection.createStatement();
-
        ResultSet rs = st.executeQuery(query);
 
-       rs.next();
+       int id =-1;
 
-       int id = rs.getInt(1);
+       if(rs.next())
+           id = rs.getInt(1);
 
        return id;
 
@@ -34,20 +33,15 @@ public class DatabaseUtil {
    public static int getTeamIdFromTeamName (String team) throws SQLException, ClassNotFoundException {
 
        String teamName = "'" + team + "'";
-      // String query = "SELECT FROM Team where Team_Name = " + teamName ;
-       String query = " select * FROM CrecketMatch.Team where Team_Name = " + teamName ;
+       String query = " select * FROM CrecketMatch.TeamTable where TeamName = " + teamName ;
 
        Connection connection = DbConnector.getConnection();
-
        Statement st = connection.createStatement();
-
        ResultSet rs = st.executeQuery(query);
        int id =-1;
 
        if(rs.next()) {
            id = rs.getInt(1);
-          // System.out.println(id);
-          // return  id;
        }
 
        return id;
