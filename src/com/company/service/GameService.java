@@ -26,32 +26,37 @@ public class GameService {
         int matchId = DbOperations.insertMatchInDb(team1Id,team2Id,numOfOver);
 
         if(Util.playToss() == Constants.ZERO) {
+            int inning1Id = DbOperations.insertInningInDb(matchId);
+            int inning2Id = DbOperations.insertInningInDb(matchId);
 
             Strike strike1 = new Strike();
             inning1 = new Inning(team1, team2, false, 0, numOfOver, strike1);
-            gameServiceHelper.playInning(inning1);
+            gameServiceHelper.playInning(inning1, inning1Id);
             System.out.println(team1.getName() + " ended game with " + Util.getScoreOfInning(inning1));
 
 
             Strike strike2 = new Strike();
             inning2 = new Inning(team2, team1, true, Util.getScoreOfInning(inning1), numOfOver, strike2);
-            gameServiceHelper.playInning(inning2);
+            gameServiceHelper.playInning(inning2, inning2Id);
             System.out.println(team2.getName() + " ended game with " + Util.getScoreOfInning(inning2));
 
         }
         else {
+
+            int inning1Id = DbOperations.insertInningInDb(matchId);
+            int inning2Id = DbOperations.insertInningInDb(matchId);
+
+
             Strike strike1 = new Strike();
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);
-            gameServiceHelper.playInning(inning1);
+            gameServiceHelper.playInning(inning1, inning1Id);
             System.out.println(team2.getName() + " ended game with " + Util.getScoreOfInning(inning1));
 
             Strike strike2 = new Strike();
             inning2 = new Inning(team1, team2, true, Util.getScoreOfInning(inning1), numOfOver, strike2);
-            gameServiceHelper.playInning(inning2);
+            gameServiceHelper.playInning(inning2, inning2Id);
             System.out.println(team1.getName() + " ended game with " + Util.getScoreOfInning(inning2));
         }
-
-        DbOperations.storeGameResult(inning1,inning2,matchId);
 
     }
 

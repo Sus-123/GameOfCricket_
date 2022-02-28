@@ -1,24 +1,34 @@
 package com.company.service;
 import com.company.Constants;
+import com.company.database.DbOperations;
 import com.company.entity.*;
 import com.company.util.Util;
 
+import java.sql.SQLException;
+
 public class GameServiceHelper {
 
-    public void playInning (Inning inning) {
+
+
+    public void playInning (Inning inning, int inningId) throws SQLException, ClassNotFoundException {
 
         System.out.println("Team " + inning.getBattingTeam().getName() + " Started the match ");
         Boolean allOut = false;
 
         for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
+
             int currentBowlerIndex = Util.getRandomBowler();
             if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning)))) {
                 return ;
             }
 
-            System.out.println("Playing Over: " + i + " Bowler is: " + inning.getBowlingTeam().getPlayers().get(currentBowlerIndex).getPlayerName());
+            String bowlerName = inning.getBowlingTeam().getPlayers().get(currentBowlerIndex).getPlayerName();
+            System.out.println("Playing Over: " + i + " Bowler is: " + bowlerName);
+
             OverDetails overDetails = new OverDetails();
             inning.setOverDetails(overDetails);
+
+            int overDetailsId = DbOperations.insertOverInDb(inningId, bowlerName, inning.getBowlingTeam().getName());
 
             //set bowler for this inning
             inning.getOverDetails().get(i-1).setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
@@ -34,7 +44,12 @@ public class GameServiceHelper {
                 BallDetails ballDetails = playBall( inning, j, currentBowlerIndex);
                 //add particular ball details, after ball being played into over details
                 inning.getOverDetails().get(i-1).getBallDetails().add(ballDetails);
+
+                // add into db
+                DbOperations.insertBallDetailsInDb(ballDetails, overDetailsId, inning.getBattingTeam().getName());
+
             }
+
             inning.strike.changeStrikeOnOver();
         }
     }
