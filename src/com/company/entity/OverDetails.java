@@ -21,5 +21,9 @@ public class OverDetails {
         return ballDetails;
     }
 
+    public void setBallDetails (ArrayList<BallDetails> ballDetails) {
+        this.ballDetails = ballDetails;
+    }
+
 
 }

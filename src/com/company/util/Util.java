@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Util {
 
      static UtilHelper helper = new UtilHelper();
+
      public  int getIntegerInput(int lower, int upper) {
         int io = helper.getIntegerInput();
         while(true) {
@@ -51,15 +52,12 @@ public class Util {
     public static int getRandomRun() {
         int [] numbers= helper.getIntegerArray();
         int ix = ThreadLocalRandom.current().nextInt(0, 100);
-        //int ix = (int)(Rand() * 100);
         int num = numbers[ix];
         return num;
      }
 
     public static int getRandomBowler() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerBowlerIndex, Constants.upperBowlerIndex);
-        //Random random = new Random();
-        //return random.ints(5, 10).findFirst().getAsInt();
      }
 
     public static int getTotalWicketOut(Inning inning) {
@@ -75,6 +73,19 @@ public class Util {
             }
         }
         return  wicketCount;
+    }
+
+    public static boolean checkMatchEnd (Inning inning) {
+
+        boolean allOut = false;
+        if(Constants.totalPlayerInTeam-1 == Util.getTotalWicketOut(inning) ) {
+            allOut = true;
+        }
+        if (allOut || (inning.isChaser() && (inning.getScoreToChase() < Util.getScoreOfInning(inning) ))) {
+            return  true;
+        }
+
+        return false;
     }
 
     public static int getScoreOfInning(Inning inning) {
@@ -96,37 +107,33 @@ public class Util {
     public static int getPlayerWiseScore(Player p, Inning inning) {
 
         int score = 0;
-       // Player p = inning.getBattingTeam().getPlayers().get(player);
         for (int i = 0; i <inning.getOverDetails().size() ; i++) {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
 
             for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-
-                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall() == p ) {
+                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall().getPlayerName().equals(p.getPlayerName())  ) {
                     score += currentOverDetails.getBallDetails().get(j).getScoreOnBall();
-
                 }
             }
         }
+
         return  score;
     }
 
     public static int getTotalBallsPlayed (Player player, Inning inning) {
          int balls = 0;
-
-        for (int i = 0; i < inning.getOverDetails().size(); i++) {
+         for (int i = 0; i < inning.getOverDetails().size(); i++) {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
 
             for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
                 BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
 
-                if(currentBallDetails.getStrikerOnBall() == player) {
+                if(currentBallDetails.getStrikerOnBall().getPlayerName().equals(player.getPlayerName())) {
                     balls ++;
                 }
-
             }
-
         }
+
         return  balls;
     }
 
@@ -135,18 +142,19 @@ public class Util {
         for (int i = 0; i < inning.getOverDetails().size(); i++) {
             OverDetails currentOverDetails = inning.getOverDetails().get(i);
             Player bowler = currentOverDetails.getBowler();
-            if(bowler != player) continue;
-            for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
-                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
-                if(currentBallDetails.getBallType() == BallType.WICKET) {
-                    wicketTaken ++;
-                }
 
+            if(bowler.getPlayerName().equals(player.getPlayerName())) {
+                for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
+                    BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
+                    if (currentBallDetails.getBallType().equals(BallType.WICKET)) {
+                        wicketTaken++;
+                    }
+
+                }
             }
+
         }
         return  wicketTaken;
      }
-
-
 
 }

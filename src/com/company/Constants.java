@@ -19,5 +19,7 @@ public class Constants {
     public static int MaxBatsmanInTeam = 5;
     public static int lowerBowlerIndex = 5;
     public static int upperBowlerIndex = 11;
+    public static int notExist = -1;
+    public static int random = 10;
 
 }

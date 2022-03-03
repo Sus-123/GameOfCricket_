@@ -1,20 +1,19 @@
 package com.company.repozitory;
 import com.company.database.DbConnector;
 import com.company.entity.Team;
-import com.company.util.DatabaseUtil;
 
 import java.sql.*;
 
 public class TeamRepository {
 
 
-    //Table- TeamTable (Id, TeamName)
+    //Table- TeamTable (TeamId, TeamName)
     public static int insertTeam(Team team) throws SQLException, ClassNotFoundException {
 
         String teamName = team.getName();
 
-        if(DatabaseUtil.getTeamIdFromTeamName(teamName) != -1) {
-            return DatabaseUtil.getTeamIdFromTeamName(teamName);
+        if(getTeamIdFromTeamName(teamName) != -1) {
+            return getTeamIdFromTeamName(teamName);
         }
 
         Connection connection = DbConnector.getConnection();
@@ -41,5 +40,41 @@ public class TeamRepository {
         }
         return teamId;
     }
+
+    public static Team createTeam (int teamId) throws SQLException, ClassNotFoundException {
+
+        String query = " select * FROM CrecketMatch.TeamTable where TeamId = " + teamId ;
+        Connection connection = DbConnector.getConnection();
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        String teamName = "";
+        if(rs.next()) {
+            teamName = rs.getString(2);
+        }
+
+        Team team = new Team(teamName);
+        return team;
+
+    }
+
+
+    public static int getTeamIdFromTeamName (String team) throws SQLException, ClassNotFoundException {
+
+        String teamName = "'" + team + "'";
+        String query = " select * FROM CrecketMatch.TeamTable where TeamName = " + teamName ;
+
+        Connection connection = DbConnector.getConnection();
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        int id =-1;
+
+        if(rs.next()) {
+            id = rs.getInt(1);
+        }
+
+        return id;
+    }
+
 
 }

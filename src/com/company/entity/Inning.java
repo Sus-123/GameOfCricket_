@@ -28,8 +28,6 @@ public class Inning {
 
     }
 
-
-
     public Team getBattingTeam() {
         return battingTeam;
     }
@@ -56,6 +54,10 @@ public class Inning {
 
     public void setOverDetails (OverDetails overs) {
         overDetails.add(overs);
+    }
+
+    public void setOverDetailsArr ( ArrayList<OverDetails> overDetails) {
+        this.overDetails = overDetails;
     }
 
 

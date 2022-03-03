@@ -19,10 +19,10 @@ public class GameService {
      * instantiateNewGame  will initialise a new match, between two team
      * @param team1
      * @param team2
-     * @param numOfOver : total numb of over to be played
+     * @param numOfOver : total num of over to be played
      */
 
-    public void initializeNewGame(Team team1, Team team2, int numOfOver) throws SQLException, ClassNotFoundException {
+    public void initializeNewGame(String matchName, Team team1, Team team2, int numOfOver) throws SQLException, ClassNotFoundException {
 
         int team1Id = TeamRepository.insertTeam(team1);
         int team2Id = TeamRepository.insertTeam(team2);
@@ -30,16 +30,17 @@ public class GameService {
         int inning1Id = InningRepository.insertInning(team1Id, team2Id, numOfOver);
         int inning2Id = InningRepository.insertInning(team2Id, team1Id, numOfOver);
 
-        MatchRepository.insertMatch(inning1Id, inning2Id);
+        MatchRepository.insertMatch(inning1Id, inning2Id, matchName);
 
 
         if(Util.playToss() == Constants.ZERO) {
-
 
             Strike strike1 = new Strike();
             inning1 = new Inning(team1, team2, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);
             System.out.println(team1.getName() + " ended game with " + Util.getScoreOfInning(inning1));
+
+            System.out.println("--------Second Inning -------");
 
 
             Strike strike2 = new Strike();
@@ -54,6 +55,8 @@ public class GameService {
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);
             System.out.println(team2.getName() + " ended game with " + Util.getScoreOfInning(inning1));
+
+            System.out.println("--------Second Inning -------");
 
             Strike strike2 = new Strike();
             inning2 = new Inning(team1, team2, true, Util.getScoreOfInning(inning1), numOfOver, strike2);
