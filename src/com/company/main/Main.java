@@ -7,19 +7,18 @@ public class Main {
 
         Util util = new Util();
         System.out.println("Press 1 - Start a new match Press 2 - view result of previously played match ");
-        //System.out.println("Press 2 - view result of previously played match");
 
         int choice = util.getIntegerInput(1,3);
         switch (choice) {
-
             case 1:
                 MatchController.startNewMatch();
                 break;
-
-
             case 2:
                 MatchController.displayPreviouslyPlayedMatch();
                 break;
+            default:
+                System.out.println("Need to press a key !");
+
         }
 
 
