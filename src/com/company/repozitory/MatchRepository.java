@@ -12,7 +12,7 @@ public class MatchRepository {
         Connection connection = DbConnector.getConnection();
         connection.setAutoCommit(false);
 
-        String query =  "INSERT INTO `CrecketMatch`.`MatchTable` (`Inning1Id`, `Inning2Id`, `MatchName`) VALUES (?, ?, ?)";
+        String query =  "INSERT INTO MatchTable (`Inning1Id`, `Inning2Id`, `MatchName`) VALUES (?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -30,7 +30,7 @@ public class MatchRepository {
     public static int getMatchIdByName (String match) throws SQLException, ClassNotFoundException {
 
         String matchName = "'" + match + "'";
-        String query = " select * FROM CrecketMatch.MatchTable where MatchName = " + matchName ;
+        String query = " select * FROM MatchTable where MatchName = " + matchName ;
 
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();
@@ -49,7 +49,7 @@ public class MatchRepository {
     public static ArrayList<Integer> getInningId (int matchId) throws SQLException, ClassNotFoundException {
         ArrayList<Integer> InningIds = new ArrayList<>();
 
-        String query = " select * FROM CrecketMatch.MatchTable where MatchId = " + matchId ;
+        String query = " select * FROM MatchTable where MatchId = " + matchId ;
 
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();

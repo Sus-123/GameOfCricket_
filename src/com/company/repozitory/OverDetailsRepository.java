@@ -16,7 +16,7 @@ public class OverDetailsRepository {
         Connection connection = DbConnector.getConnection();
         connection.setAutoCommit(false);
 
-        String query = "INSERT INTO `CrecketMatch`.`OverDetailsTable` (`InningId`, `BowlerId`) VALUES (?, ?)";
+        String query = "INSERT INTO OverDetailsTable (`InningId`, `BowlerId`) VALUES (?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         preparedStatement.setInt(1,inningId);

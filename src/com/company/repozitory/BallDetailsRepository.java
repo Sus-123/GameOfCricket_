@@ -19,7 +19,7 @@ public class BallDetailsRepository {
         Connection connection = DbConnector.getConnection();
         connection.setAutoCommit(false);
 
-        String query = "INSERT INTO `CrecketMatch`.`BallDetailsTable` (`OverId`, `InningId`, `Score`, `StrikerId`, `BallType` ) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO BallDetailsTable (`OverId`, `InningId`, `Score`, `StrikerId`, `BallType` ) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 

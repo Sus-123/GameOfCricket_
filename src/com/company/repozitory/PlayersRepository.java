@@ -11,7 +11,7 @@ public class PlayersRepository {
     //Table- PlayersTable (PlayerId, TeamId, PlayerName, PlayerType)
     public static void insertTeamPlayers(int teamId, ArrayList<Player> players) throws SQLException, ClassNotFoundException {
 
-        String query =  "INSERT INTO `CrecketMatch`.`PlayersTable` (`TeamId`, `PlayerName`, `PlayerType`) VALUES (?, ?, ?)";
+        String query =  "INSERT INTO PlayersTable (`TeamId`, `PlayerName`, `PlayerType`) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = DbConnector.getConnection().prepareStatement(query);
 
         for (int i = 0; i < players.size(); i++) {
@@ -32,7 +32,7 @@ public class PlayersRepository {
         int team_Id = TeamRepository.getTeamIdFromTeamName(team);
         String playerName = "'" + player + "'";
         String teamId = "'" + team_Id + "'";
-        String query = "SELECT * FROM CrecketMatch.PlayersTable where TeamId = " + teamId + " and PlayerName = " + playerName;
+        String query = "SELECT * FROM PlayersTable where TeamId = " + teamId + " and PlayerName = " + playerName;
 
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -48,7 +48,7 @@ public class PlayersRepository {
 
     public static Player createPlayer (int playerId) throws SQLException, ClassNotFoundException {
 
-        String query = "SELECT * FROM CrecketMatch.PlayersTable WHERE PlayerId = " + playerId;
+        String query = "SELECT * FROM PlayersTable WHERE PlayerId = " + playerId;
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(query);

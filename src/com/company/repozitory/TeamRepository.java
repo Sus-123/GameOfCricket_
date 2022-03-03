@@ -19,7 +19,7 @@ public class TeamRepository {
         Connection connection = DbConnector.getConnection();
         connection.setAutoCommit(false);
 
-        String query =  "INSERT INTO `CrecketMatch`.`TeamTable` (`TeamName`) VALUES (?)";
+        String query =  "INSERT INTO TeamTable (`TeamName`) VALUES (?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1,teamName);
 
@@ -43,7 +43,7 @@ public class TeamRepository {
 
     public static Team createTeam (int teamId) throws SQLException, ClassNotFoundException {
 
-        String query = " select * FROM CrecketMatch.TeamTable where TeamId = " + teamId ;
+        String query = " select * FROM TeamTable where TeamId = " + teamId ;
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -62,7 +62,7 @@ public class TeamRepository {
     public static int getTeamIdFromTeamName (String team) throws SQLException, ClassNotFoundException {
 
         String teamName = "'" + team + "'";
-        String query = " select * FROM CrecketMatch.TeamTable where TeamName = " + teamName ;
+        String query = " select * FROM TeamTable where TeamName = " + teamName ;
 
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();

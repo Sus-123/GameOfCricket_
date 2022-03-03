@@ -18,7 +18,7 @@ public class InningRepository {
         connection.setAutoCommit(false);
 
         // String query = "insert into Inning(Match_Id, BattingTeam_Id, BowlingTeam_Id) values(?,?,?)";
-        String query = "INSERT INTO `CrecketMatch`.`InningTable` (BattingTeamId, BowlingTeamId, Overs) VALUES (?, ?, ?)";
+        String query = "INSERT INTO InningTable (BattingTeamId, BowlingTeamId, Overs) VALUES (?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -45,7 +45,7 @@ public class InningRepository {
 
     public static Inning createInning(int id) throws SQLException, ClassNotFoundException {
 
-        String query = " select * FROM CrecketMatch.InningTable where InningId = " + id;
+        String query = " select * FROM InningTable where InningId = " + id;
         Connection connection = DbConnector.getConnection();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(query);

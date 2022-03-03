@@ -9,6 +9,7 @@ public class Main {
         System.out.println("Press 1 - Start a new match Press 2 - view result of previously played match ");
 
         int choice = util.getIntegerInput(1,3);
+
         switch (choice) {
             case 1:
                 MatchController.startNewMatch();
@@ -18,7 +19,6 @@ public class Main {
                 break;
             default:
                 System.out.println("Need to press a key !");
-
         }
 
 
