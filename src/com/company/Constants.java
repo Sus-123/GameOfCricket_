@@ -20,7 +20,6 @@ public class Constants {
     public static int random = 10;
     public static  String user = "root";
     public static String pass = "Susu_1234";
-    public static String schema = "CrecketMatch";
     public static String url = "jdbc:mysql://localhost/CrecketMatch";
 
 }
