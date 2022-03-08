@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DbConnector {
 
-  
+
 
     private static Connection connection = null;
     private static void initializeConnection() throws ClassNotFoundException, SQLException {

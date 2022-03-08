@@ -52,7 +52,6 @@ public class BallDetailsRepository {
 
             BallDetails ball = new BallDetails();
             ball.setScoreOnBall(rs.getInt(4));
-           // System.out.println(rs.getInt(4));
             ball.setBallType(BallType.valueOf(rs.getString(6)));
             ball.setStrikerOnBall(striker);
             ballDetails.add(ball);

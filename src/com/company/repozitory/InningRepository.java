@@ -17,7 +17,6 @@ public class InningRepository {
         Connection connection = DbConnector.getConnection();
         connection.setAutoCommit(false);
 
-        // String query = "insert into Inning(Match_Id, BattingTeam_Id, BowlingTeam_Id) values(?,?,?)";
         String query = "INSERT INTO InningTable (BattingTeamId, BowlingTeamId, Overs) VALUES (?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

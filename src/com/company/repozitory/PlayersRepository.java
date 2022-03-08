@@ -1,7 +1,6 @@
 package com.company.repozitory;
 import com.company.database.DbConnector;
 import com.company.entity.Player;
-import com.company.entity.PlayerType;
 
 import java.sql.*;
 import java.util.ArrayList;

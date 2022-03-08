@@ -27,7 +27,7 @@ public class MatchController {
         Team team1 = new Team(team1Name);
 
 
-        System.out.println("Enter Team2  name: ");
+        System.out.println("Enter Team2 name: ");
         String team2Name = util.getValidStringType();
         Team team2 = new Team(team2Name);
 
