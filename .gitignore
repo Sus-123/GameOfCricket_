@@ -6,3 +6,6 @@
 *.iml
 out
 gen
+External Libraries
+.jpb
+target
