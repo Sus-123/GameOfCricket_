@@ -1,6 +1,6 @@
 package com.company.database;
 
-import constants.Constants;
+import com.company.constants.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

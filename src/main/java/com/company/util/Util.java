@@ -1,6 +1,6 @@
 package com.company.util;
 import com.company.entity.matchEntity.Inning;
-import constants.Constants;
+import com.company.constants.Constants;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,19 +28,7 @@ public class Util {
         return io;
     }
 
-    public static boolean checkStringValidityType ( String io) {
-         try {
-             if(io.isEmpty()){
-                 return false;
-             }
-         } catch (Exception e) {
-             System.out.println("Enter only valid String!");
-         }
 
-         return true;
-
-
-    }
 
     public static int playToss() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerTossBound,Constants.upperTossBound);

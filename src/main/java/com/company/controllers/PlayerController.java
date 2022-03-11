@@ -13,7 +13,6 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-
     @GetMapping("/match/{matchName}/team/{teamName}/player/{playerName}")
     public ResponseEntity<PlayerStatsInSingleMatch> getPlayerInfoByMatchId(@PathVariable("matchName") String matchName, @PathVariable("teamName") String teamName, @PathVariable("playerName") String playerName)  {
 

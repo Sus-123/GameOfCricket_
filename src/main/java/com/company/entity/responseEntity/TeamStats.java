@@ -2,15 +2,13 @@ package com.company.entity.responseEntity;
 
 public class TeamStats {
 
-    private  int id;
     private String name;
     private int runs;
     private int wickets;
     private float ballsPlayed;
 
 
-    public TeamStats(int id, String name, int runs, int wickets, float ballsPlayed ) {
-        this.id = id;
+    public TeamStats( String name, int runs, int wickets, float ballsPlayed ) {
         this.name = name;
         this.runs = runs;
         this.wickets = wickets;
@@ -18,13 +16,6 @@ public class TeamStats {
     }
 
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 
     public void setName(String name) {
         this.name = name;

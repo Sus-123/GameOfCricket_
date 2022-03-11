@@ -5,7 +5,7 @@ import com.company.repozitory.*;
 import com.company.util.InningUtil;
 import com.company.util.PlayerUtil;
 import com.company.util.Util;
-import constants.Constants;
+import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +13,13 @@ import java.sql.SQLException;
 
 
 @Service
-public class GameServiceHelper {
+public class GameServiceImplementation {
 
     @Autowired
-    OverDetailsRepository overDetailsRepository;
+    private OverDetailsRepository overDetailsRepository;
 
     @Autowired
-    BallDetailsRepository ballDetailsRepository;
+    private BallDetailsRepository ballDetailsRepository;
 
 
     /**
@@ -28,7 +28,7 @@ public class GameServiceHelper {
      * @param inningId
      */
 
-    public void playInning (Inning inning, int inningId) throws SQLException, ClassNotFoundException {
+    public void playInning (Inning inning, int inningId)  {
 
         System.out.println("Team " + inning.getBattingTeam().getName() + " Started the match ");
 
@@ -51,7 +51,7 @@ public class GameServiceHelper {
      * @param currentBowlerIndex
      */
 
-    public void playOver (Inning inning, int over, int inningId, int currentBowlerIndex) throws SQLException, ClassNotFoundException {
+    public void playOver (Inning inning, int over, int inningId, int currentBowlerIndex) {
         OverDetails overDetails = new OverDetails();
         inning.setOverDetails(overDetails);
 

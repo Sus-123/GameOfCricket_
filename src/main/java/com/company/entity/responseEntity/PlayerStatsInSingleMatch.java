@@ -1,8 +1,5 @@
 package com.company.entity.responseEntity;
 
-import com.company.entity.responseEntity.BattingStatsOfPlayer;
-import com.company.entity.responseEntity.BowlingStatsOfPlayer;
-
 public class PlayerStatsInSingleMatch {
 
     private String name;
@@ -21,7 +18,6 @@ public class PlayerStatsInSingleMatch {
     }
 
     public String getName () {
-
         return this.name;
     }
 

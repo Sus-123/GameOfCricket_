@@ -1,5 +1,5 @@
 package com.company.entity.matchEntity;
-import constants.Constants;
+import com.company.constants.Constants;
 
 import java.util.ArrayList;
 

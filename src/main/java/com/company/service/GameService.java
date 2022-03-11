@@ -7,7 +7,7 @@ import com.company.repozitory.MatchRepository;
 import com.company.repozitory.TeamRepository;
 import com.company.util.InningUtil;
 import com.company.util.Util;
-import constants.Constants;
+import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ import java.sql.SQLException;
 public class GameService {
 
     @Autowired
-    GameServiceHelper gameServiceHelper;
+    private GameServiceImplementation gameServiceHelper;
     @Autowired
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
     @Autowired
-    InningRepository inningRepository;
+    private InningRepository inningRepository;
     @Autowired
-    MatchRepository matchRepository;
+    private MatchRepository matchRepository;
 
     Inning inning1;
     Inning inning2;
@@ -37,12 +37,8 @@ public class GameService {
      * @param numOfOver : total num of over to be played
      */
 
-    public void initializeNewGame(String matchName, String team1Name, String team2Name, int numOfOver) throws SQLException, ClassNotFoundException {
+    public void initializeNewGame(String matchName, String team1Name, String team2Name, int numOfOver)  {
 
-        if(!Util.checkStringValidityType(matchName) || !Util.checkStringValidityType(team1Name) || !Util.checkStringValidityType(team2Name)){
-            System.out.println("Check matchName or teamNames, if its valid!");
-            return;
-        }
 
         Team team1 = new Team(team1Name);
         Team team2 = new Team(team2Name);

@@ -1,7 +1,7 @@
 package com.company.util;
 
 import com.company.entity.matchEntity.*;
-import constants.Constants;
+import com.company.constants.Constants;
 
 public class InningUtil {
 
