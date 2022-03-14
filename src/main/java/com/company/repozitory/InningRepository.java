@@ -1,16 +1,19 @@
 package com.company.repozitory;
 
 import com.company.Exception.ErrorDetails;
+import com.company.constants.Constants;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.OverDetails;
 import com.company.entity.matchEntity.Strike;
 import com.company.entity.matchEntity.Team;
-import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -43,7 +46,7 @@ public class InningRepository {
             }
             connection.commit();
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while Inserting Inning In Db with Batting Team Id: " + BattingTeamId  +" Bowling Team Id : " + BowlingTeamId, e.getMessage());
+            throw new IllegalStateException("Error while Inserting Inning In Db with Batting Team Id: " + BattingTeamId  +" Bowling Team Id : " + BowlingTeamId);
         }
 
         return inningId;
@@ -61,19 +64,44 @@ public class InningRepository {
             ResultSet rs = st.executeQuery(query);
             rs.next();
 
-            Team battingTeam = teamRepository.createTeam(rs.getInt(2));
-            Team bowlingTeam = teamRepository.createTeam(rs.getInt(3));
+            Team battingTeam = teamRepository.getTeam(rs.getInt(2));
+            Team bowlingTeam = teamRepository.getTeam(rs.getInt(3));
 
             inning = new Inning(battingTeam, bowlingTeam, true, Constants.random, rs.getInt(4), new Strike());
 
             ArrayList<OverDetails> overDetails = overDetailsRepository.getOvers(id);
             inning.setOverDetailsArr(overDetails);
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while getting Inning with Id : " + id, e.getMessage());
+            throw new IllegalStateException( "Error while getting Inning with Id : " + id);
         }
 
         return inning;
 
+    }
+
+    public  ArrayList<Team> getTeams (int inningId) {
+
+        ArrayList<Team> teams = new ArrayList<>();
+        try {
+            String query = " select * FROM InningTable where InningId = " + inningId;
+
+            Connection connection = DbConnector.getConnection();
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            if (rs.next()) {
+                teams.add(teamRepository.getTeam(rs.getInt(2)));
+                teams.add(teamRepository.getTeam(rs.getInt(3)));
+            }
+        }  catch (Exception e){
+            throw new IllegalStateException("Error while fetching teams with inningId: " + inningId);
+        }
+
+        if(teams.isEmpty()) {
+            throw new IllegalStateException("With the inning Id : " + inningId + " teams does not exist!");
+        }
+
+        return teams;
     }
 
 

@@ -1,4 +1,5 @@
 package com.company.service;
+
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.Player;
 import com.company.entity.responseEntity.BattingStatsOfPlayer;
@@ -11,6 +12,7 @@ import com.company.repozitory.TeamRepository;
 import com.company.util.PlayerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
 
@@ -39,9 +41,6 @@ public class PlayerService {
             throw new IllegalStateException("Player with name "+ playerName + " in Team " + teamName + " does not exist.");
         }
 
-
-        PlayerStatsInSingleMatch playerStatsInSingleMatch = null;
-
         int matchId = matchRepository.getMatchIdByName(matchName);
         int playerId = teamRepository.getPlayerId(playerName, teamName);
 
@@ -50,6 +49,15 @@ public class PlayerService {
         Inning inning1 = inningRepository.getInning(inningsIds.get(0));
         Inning inning2 = inningRepository.getInning(inningsIds.get(1));
         Player player = playersRepository.getPlayer(playerId);
+
+        return getPlayerStats(inning1, inning2, player);
+
+
+    }
+
+    public PlayerStatsInSingleMatch getPlayerStats (Inning inning1, Inning inning2 , Player player) {
+
+        PlayerStatsInSingleMatch playerStatsInSingleMatch = null;
 
         int runsScored = PlayerUtil.getPlayerWiseScore(player, inning1) + PlayerUtil.getPlayerWiseScore(player, inning2);
         int centuries = PlayerUtil.getCenturies(player, inning1) + PlayerUtil.getCenturies(player, inning2);
@@ -63,9 +71,11 @@ public class PlayerService {
         BattingStatsOfPlayer battingStatsOfPlayer = new BattingStatsOfPlayer(runsScored, centuries, sixes, fours, ballsPlayed);
         BowlingStatsOfPlayer bowlingStatsOfPlayer = new BowlingStatsOfPlayer(wicketTaken, ballsBowled);
 
-        playerStatsInSingleMatch = new PlayerStatsInSingleMatch(playerName, battingStatsOfPlayer, bowlingStatsOfPlayer);
+        playerStatsInSingleMatch = new PlayerStatsInSingleMatch(player.getPlayerName(), battingStatsOfPlayer, bowlingStatsOfPlayer);
 
         return playerStatsInSingleMatch;
+
     }
+
 
 }

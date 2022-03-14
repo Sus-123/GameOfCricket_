@@ -19,9 +19,7 @@ public class Player {
     public String getPlayerName() {
         return playerName;
     }
-    public PlayerType getPlayerType () {
-        return this.playerType;
-    }
+
 
     public String getPlayerTypeInString () {
         if(playerType == PlayerType.BATSMAN)

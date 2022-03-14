@@ -4,7 +4,10 @@ import com.company.Exception.ErrorDetails;
 import com.company.database.DbConnector;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +37,7 @@ public class MatchRepository {
                 matchId = rs.getInt(1);
             }
         } catch (Exception e){
-            throw  new ErrorDetails(new Date(), "Error while inserting Match : " + matchName, e.getMessage());
+            throw new IllegalStateException("Error while inserting Match : " + matchName);
         }
 
         return matchId;
@@ -53,7 +56,7 @@ public class MatchRepository {
                 id = rs.getInt(1);
             }
         } catch (Exception e){
-            throw  new ErrorDetails(new Date(), "Error while fetching MatchId of Match  : " + match, e.getMessage());
+            throw new IllegalStateException("Error while fetching MatchId of Match  : " + match);
         }
 
         return id;
@@ -76,7 +79,7 @@ public class MatchRepository {
                 InningIds.add(rs.getInt(3));
             }
         }  catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while fetching InningIds with matchId: " + matchId, e.getMessage());
+            throw new IllegalStateException("Error while fetching InningIds with matchId: " + matchId);
         }
 
         if(InningIds.isEmpty()) {
@@ -100,7 +103,7 @@ public class MatchRepository {
                 exist = true;
             }
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while Checking match existence in Db with Match: " + match, e.getMessage());
+            throw new IllegalStateException("Error while Checking match existence in Db with Match: " + match);
         }
         return exist;
     }

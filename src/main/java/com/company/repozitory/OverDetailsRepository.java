@@ -1,4 +1,5 @@
 package com.company.repozitory;
+
 import com.company.Exception.ErrorDetails;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.BallDetails;
@@ -7,7 +8,10 @@ import com.company.entity.matchEntity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -44,7 +48,7 @@ public class OverDetailsRepository {
             }
             connection.commit();
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while inserting overDetails with inning id: " + inningId, e.getMessage());
+            throw new IllegalStateException("Error while inserting overDetails with inning id: " + inningId);
         }
 
         return overDetailsId;
@@ -72,7 +76,7 @@ public class OverDetailsRepository {
                 overs.add(overDetails);
             }
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while getting overDetails with inning id: " + inningId, e.getMessage());
+            throw new IllegalStateException("Error while getting overDetails with inning id: " + inningId);
         }
 
         if(overs.isEmpty()) {

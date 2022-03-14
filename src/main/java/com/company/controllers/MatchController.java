@@ -1,8 +1,8 @@
 package com.company.controllers;
+import com.company.constants.Constants;
 import com.company.entity.requestEntity.Match;
 import com.company.entity.responseEntity.MatchStats;
 import com.company.service.MatchService;
-import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class MatchController {
     @Autowired
     private MatchService matchService;
 
-    @GetMapping("/match/{matchName}")
+    @GetMapping("/matchResult/{matchName}")
     public ResponseEntity<MatchStats> getMatchById (@PathVariable("matchName") String matchName) {
         MatchStats matchStats = matchService.getMatch(matchName);
         if(matchStats.equals(Constants.notExist)) {
@@ -37,5 +37,6 @@ public class MatchController {
             return new ResponseEntity<>(matchStats, HttpStatus.CREATED);
         }
     }
+
 
 }

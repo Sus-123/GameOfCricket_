@@ -8,7 +8,10 @@ import com.company.entity.matchEntity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,7 +50,7 @@ public class BallDetailsRepository {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while Inserting Ball Details with OverId  : " + overId, e.getMessage());
+            throw new IllegalStateException("Error while Inserting Ball Details with OverId  : " + overId);
         }
 
     }
@@ -75,7 +78,7 @@ public class BallDetailsRepository {
 
             }
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while getting Ball Details with OverId : " + overId, e.getMessage());
+            throw new IllegalStateException("Error while getting Ball Details with OverId : " + overId);
         }
 
         if(ballDetails.isEmpty()) {

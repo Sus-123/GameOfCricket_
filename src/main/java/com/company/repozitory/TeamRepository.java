@@ -1,12 +1,15 @@
 package com.company.repozitory;
+
 import com.company.Exception.ErrorDetails;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Team;
-import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Date;
 
 
@@ -47,13 +50,13 @@ public class TeamRepository {
             connection.commit();
 
         } catch (Exception e ) {
-             throw new ErrorDetails(new Date(), "Error while inserting Team with team name: " + teamName, e.getMessage());
+             throw new IllegalStateException( "Error while inserting Team with team name: " + teamName);
          }
 
         return teamId;
     }
 
-    public  Team createTeam (int teamId) {
+    public Team getTeam (int teamId) {
 
         Team team = null;
         try {
@@ -68,7 +71,7 @@ public class TeamRepository {
             }
             team = new Team(teamName);
         } catch (Exception e) {
-            throw new ErrorDetails(new Date(), "Error while getting Team with team id: " + teamId, e.getMessage());
+            throw new IllegalStateException("Error while getting Team with team id: " + teamId);
         }
         return team;
     }
@@ -109,7 +112,7 @@ public class TeamRepository {
                 id = rs.getInt(1);
 
         } catch (Exception e) {
-            throw new ErrorDetails(new Date(), " Error wile getting Player: " + player + "from team "+ team, e.getMessage());
+            throw new IllegalStateException(" Error wile getting Player: " + player + "from team "+ team + " " + e.getMessage());
         }
 
         return id;
@@ -150,7 +153,7 @@ public class TeamRepository {
                 exist = false;
             }
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while getting  Player with player id: " + playerId, e.getMessage());
+            throw new IllegalStateException("Error while getting  Player with player id: " + playerId + " " + e.getMessage());
         }
 
         return exist;

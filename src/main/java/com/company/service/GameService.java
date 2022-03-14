@@ -1,4 +1,6 @@
 package com.company.service;
+
+import com.company.constants.Constants;
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.Strike;
 import com.company.entity.matchEntity.Team;
@@ -7,11 +9,8 @@ import com.company.repozitory.MatchRepository;
 import com.company.repozitory.TeamRepository;
 import com.company.util.InningUtil;
 import com.company.util.Util;
-import com.company.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 
 
 @Service

@@ -1,12 +1,14 @@
 package com.company.repozitory;
+
 import com.company.Exception.ErrorDetails;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,7 +37,7 @@ public class PlayersRepository {
 
             preparedStatement.executeBatch();
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while inserting Team Players with team id: " + teamId, e.getMessage());
+            throw new IllegalStateException("Error while inserting Team Players with team id: " + teamId);
         }
     }
 
@@ -43,20 +45,19 @@ public class PlayersRepository {
 
 
     public Player getPlayer (int playerId)  {
-        Player p = null;
+        Player player = null;
         try {
             String query = "SELECT * FROM PlayersTable WHERE PlayerId = " + playerId;
             Connection connection = DbConnector.getConnection();
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             rs.next();
-            p = new Player(rs.getString(3), rs.getString(4));
+            player = new Player(rs.getString(3), rs.getString(4));
         } catch (Exception e){
-            throw new ErrorDetails(new Date(), "Error while getting  Player with player id: " + playerId, e.getMessage());
+            throw new IllegalStateException("Error while getting  Player with player id: " + playerId);
         }
 
-        return p;
-
+        return player;
     }
 
 

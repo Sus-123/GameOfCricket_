@@ -1,5 +1,7 @@
 package com.company.entity.responseEntity;
 
+import java.util.ArrayList;
+
 public class TeamStats {
 
     private String name;
@@ -8,11 +10,15 @@ public class TeamStats {
     private float ballsPlayed;
 
 
-    public TeamStats( String name, int runs, int wickets, float ballsPlayed ) {
+    private ArrayList<PlayerStatsInSingleMatch> playersDetails;
+
+
+    public TeamStats( String name, int runs, int wickets, float ballsPlayed , ArrayList<PlayerStatsInSingleMatch> playersDetails) {
         this.name = name;
         this.runs = runs;
         this.wickets = wickets;
         this.ballsPlayed = ballsPlayed;
+        this.playersDetails = playersDetails;
     }
 
 
@@ -50,6 +56,14 @@ public class TeamStats {
 
     public int getWickets() {
         return wickets;
+    }
+
+    public ArrayList<PlayerStatsInSingleMatch> getPlayersDetails() {
+        return playersDetails;
+    }
+
+    public void setPlayersDetails(ArrayList<PlayerStatsInSingleMatch> playersDetails) {
+        this.playersDetails = playersDetails;
     }
 
 
