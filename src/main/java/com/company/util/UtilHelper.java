@@ -28,16 +28,6 @@ public class UtilHelper {
         return this.numbers;
     }
 
-    public int getIntegerInput() {
-        int io;
-        io = Integer.parseInt(sc.nextLine());
-        return io;
-    }
 
-    public String getStringInput () {
-        String io = "";
-        io = sc.nextLine();
-        return io;
-    }
 
 }

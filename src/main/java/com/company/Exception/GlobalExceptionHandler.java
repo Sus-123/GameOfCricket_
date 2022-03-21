@@ -15,7 +15,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(InvalidInputException.class)
     public ResponseEntity<?> handleInvalidInputException (InvalidInputException exception, WebRequest request) {
-
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }

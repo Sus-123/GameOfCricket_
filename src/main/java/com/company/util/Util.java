@@ -10,25 +10,6 @@ public class Util {
 
      static UtilHelper helper = new UtilHelper();
 
-     public  int getIntegerInput(int lower, int upper) {
-        int io = helper.getIntegerInput();
-        while(true) {
-            try {
-                //io = Integer.parseInt(sc.nextLine());
-                if (io < lower || io > upper) {
-                    System.out.println(String.format("Values Should be in range % d and % d", lower, upper));
-                } else {
-                    break;
-                }
-            }
-            catch (NumberFormatException e) {
-                System.out.println("Enter only Integer");
-            }
-
-        }
-        return io;
-    }
-
 
 
     public static int playToss() {
