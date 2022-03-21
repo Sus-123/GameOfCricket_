@@ -1,4 +1,4 @@
-package com.company.entity.responseEntity;
+package com.company.response;
 
 import java.util.ArrayList;
 

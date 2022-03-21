@@ -1,7 +1,7 @@
 package com.company.controllers;
 import com.company.constants.Constants;
-import com.company.entity.requestEntity.Match;
-import com.company.entity.responseEntity.MatchStats;
+import com.company.request.Match;
+import com.company.response.MatchStats;
 import com.company.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

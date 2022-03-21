@@ -1,5 +1,5 @@
 package com.company.controllers;
-import com.company.entity.responseEntity.PlayerStatsInSingleMatch;
+import com.company.response.PlayerStatsInSingleMatch;
 import com.company.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

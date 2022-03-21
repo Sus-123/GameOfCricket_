@@ -2,9 +2,9 @@ package com.company.service;
 
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.Player;
-import com.company.entity.responseEntity.BattingStatsOfPlayer;
-import com.company.entity.responseEntity.BowlingStatsOfPlayer;
-import com.company.entity.responseEntity.PlayerStatsInSingleMatch;
+import com.company.response.BattingStatsOfPlayer;
+import com.company.response.BowlingStatsOfPlayer;
+import com.company.response.PlayerStatsInSingleMatch;
 import com.company.repozitory.InningRepository;
 import com.company.repozitory.MatchRepository;
 import com.company.repozitory.PlayersRepository;

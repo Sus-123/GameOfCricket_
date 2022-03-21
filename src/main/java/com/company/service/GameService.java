@@ -25,8 +25,7 @@ public class GameService {
     @Autowired
     private MatchRepository matchRepository;
 
-    Inning inning1;
-    Inning inning2;
+
 
 
     /**
@@ -37,6 +36,8 @@ public class GameService {
      */
 
     public void initializeNewGame(String matchName, String team1Name, String team2Name, int numOfOver)  {
+        Inning inning1;
+        Inning inning2;
 
 
         Team team1 = new Team(team1Name);

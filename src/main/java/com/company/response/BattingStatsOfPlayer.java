@@ -1,4 +1,4 @@
-package com.company.entity.responseEntity;
+package com.company.response;
 
 public class BattingStatsOfPlayer {
 

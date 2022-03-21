@@ -1,4 +1,4 @@
-package com.company.entity.requestEntity;
+package com.company.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Match {
