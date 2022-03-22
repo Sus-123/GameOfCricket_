@@ -1,8 +1,9 @@
 package com.company.repozitory;
 
-import com.company.Exception.ErrorDetails;
+import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Player;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -10,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Repository
 public class PlayersRepository {
@@ -37,7 +37,7 @@ public class PlayersRepository {
 
             preparedStatement.executeBatch();
         } catch (Exception e){
-            throw new IllegalStateException("Error while inserting Team Players with team id: " + teamId);
+            throw new GameExceptions("Error while inserting Team Players with team id: " + teamId, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -54,7 +54,7 @@ public class PlayersRepository {
             rs.next();
             player = new Player(rs.getString(3), rs.getString(4));
         } catch (Exception e){
-            throw new IllegalStateException("Error while getting  Player with player id: " + playerId);
+            throw new GameExceptions("Error while getting  Player with player id: " + playerId, HttpStatus.NOT_FOUND);
         }
 
         return player;

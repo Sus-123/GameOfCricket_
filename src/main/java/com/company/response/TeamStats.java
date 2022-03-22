@@ -7,13 +7,12 @@ public class TeamStats {
     private String name;
     private int runs;
     private int wickets;
-    private float ballsPlayed;
-
+    private int ballsPlayed;
 
     private ArrayList<PlayerStatsInSingleMatch> playersDetails;
 
 
-    public TeamStats( String name, int runs, int wickets, float ballsPlayed , ArrayList<PlayerStatsInSingleMatch> playersDetails) {
+    public TeamStats( String name, int runs, int wickets, int ballsPlayed , ArrayList<PlayerStatsInSingleMatch> playersDetails) {
         this.name = name;
         this.runs = runs;
         this.wickets = wickets;
@@ -40,8 +39,8 @@ public class TeamStats {
         return runs;
     }
 
-    public void setBallsPlayed(float oversPlayed) {
-        this.ballsPlayed = oversPlayed;
+    public void setBallsPlayed(int ballsPlayed) {
+        this.ballsPlayed = ballsPlayed;
     }
 
     public float getBallsPlayed() {

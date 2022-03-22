@@ -16,8 +16,10 @@ public class MatchController {
     @Autowired
     private MatchService matchService;
 
+
     @GetMapping("/matchResult/{matchName}")
     public ResponseEntity<MatchStats> getMatchByName (@PathVariable("matchName") String matchName) {
+
         MatchStats matchStats = matchService.getMatch(matchName);
         if(matchStats.equals(Constants.notExist)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

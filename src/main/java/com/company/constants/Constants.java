@@ -14,10 +14,11 @@ public class Constants {
     public static int MaxBatsmanInTeam = 5;
     public static int lowerBowlerIndex = 5;
     public static int upperBowlerIndex = 11;
-    public static int random = 10;
+    //public static int random = 10;
+    public static String notExist = "null";
     public static  String user = "root";
     public static String pass = "Susu_1234";
     public static String url = "jdbc:mysql://localhost/CrecketMatch";
-    public static String notExist = "null";
+
 
 }

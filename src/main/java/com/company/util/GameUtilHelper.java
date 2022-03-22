@@ -1,11 +1,10 @@
 package com.company.util;
-import java.util.Scanner;
 
-public class UtilHelper {
 
-    Scanner sc = new Scanner(System.in);
-    private int[] numbers = new int[100];
-    public UtilHelper() {
+public class GameUtilHelper {
+
+    private static int[] numbers = new int[100];
+    public GameUtilHelper() {
         //we can set probability of different run according to our choice.
         //like here probability of 5 is zero.
         for (int i = 0; i < 10; ++i)

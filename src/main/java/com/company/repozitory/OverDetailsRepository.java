@@ -1,11 +1,12 @@
 package com.company.repozitory;
 
-import com.company.Exception.ErrorDetails;
+import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.BallDetails;
 import com.company.entity.matchEntity.OverDetails;
 import com.company.entity.matchEntity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Repository
 public class OverDetailsRepository {
@@ -48,7 +48,7 @@ public class OverDetailsRepository {
             }
             connection.commit();
         } catch (Exception e){
-            throw new IllegalStateException("Error while inserting overDetails with inning id: " + inningId);
+            throw new GameExceptions("Error while inserting overDetails with inning id: " + inningId, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return overDetailsId;
@@ -76,11 +76,11 @@ public class OverDetailsRepository {
                 overs.add(overDetails);
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while getting overDetails with inning id: " + inningId);
+            throw new GameExceptions("Error while getting overDetails with inning id: " + inningId, HttpStatus.NOT_FOUND);
         }
 
         if(overs.isEmpty()) {
-            throw new IllegalStateException("With Inning Id : " + inningId + " over details does not exist!");
+            throw new GameExceptions("With Inning Id : " + inningId + " over details does not exist!", HttpStatus.NO_CONTENT);
         }
 
         return overs;

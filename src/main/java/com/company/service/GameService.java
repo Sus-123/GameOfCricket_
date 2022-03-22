@@ -8,7 +8,7 @@ import com.company.repozitory.InningRepository;
 import com.company.repozitory.MatchRepository;
 import com.company.repozitory.TeamRepository;
 import com.company.util.InningUtil;
-import com.company.util.Util;
+import com.company.util.GameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,6 @@ public class GameService {
 
 
 
-
     /**
      * instantiateNewGame  will initialise a new match, between two team
      * @param team1Name
@@ -36,8 +35,8 @@ public class GameService {
      */
 
     public void initializeNewGame(String matchName, String team1Name, String team2Name, int numOfOver)  {
-        Inning inning1;
-        Inning inning2;
+        Inning inning1 = null;
+        Inning inning2 = null;
 
 
         Team team1 = new Team(team1Name);
@@ -47,13 +46,12 @@ public class GameService {
         int team2Id = teamRepository.insertTeam(team2);
 
 
-        int inning1Id = inningRepository.insertInning(team1Id, team2Id, numOfOver);
-        int inning2Id = inningRepository.insertInning(team2Id, team1Id, numOfOver);
+        if(GameUtil.playToss() == Constants.ZERO) {
 
-        int matchId = matchRepository.insertMatch(inning1Id, inning2Id, matchName);
+            int inning1Id = inningRepository.insertInning(team1Id, team2Id, numOfOver);
+            int inning2Id = inningRepository.insertInning(team2Id, team1Id, numOfOver);
+            matchRepository.insertMatch(inning1Id, inning2Id, matchName);
 
-
-        if(Util.playToss() == Constants.ZERO) {
 
             Strike strike1 = new Strike();
             inning1 = new Inning(team1, team2, false, 0, numOfOver, strike1);
@@ -70,6 +68,11 @@ public class GameService {
 
         }
         else {
+            int inning1Id = inningRepository.insertInning(team2Id, team1Id, numOfOver);
+            int inning2Id = inningRepository.insertInning(team1Id, team2Id, numOfOver);
+            matchRepository.insertMatch(inning1Id, inning2Id, matchName);
+
+
             Strike strike1 = new Strike();
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);

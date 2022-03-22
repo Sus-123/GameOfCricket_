@@ -1,29 +1,32 @@
 package com.company.Exception;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.Date;
 
 
-public class ErrorDetails extends RuntimeException {
+public class GameExceptions extends RuntimeException {
 
     private Date timestamp;
     private String message;
-    private String details;
+    private HttpStatus httpStatus;
 
-    public ErrorDetails(Date timestamp, String message, String details) {
+
+    public GameExceptions(String message, HttpStatus httpStatus) {
         super();
-        this.timestamp = timestamp;
+        this.timestamp = new Date();
         this.message = message;
-        this.details = details;
+        this.httpStatus = httpStatus;
     }
 
-
-    public String getDetails() {
-        return details;
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
+
 
     public String getMessage() {
         return message;

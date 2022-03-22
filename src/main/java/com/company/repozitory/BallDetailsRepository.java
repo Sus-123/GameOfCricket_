@@ -1,11 +1,12 @@
 package com.company.repozitory;
 
-import com.company.Exception.ErrorDetails;
+import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.BallDetails;
 import com.company.entity.matchEntity.BallType;
 import com.company.entity.matchEntity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 @Repository
@@ -21,7 +21,6 @@ public class BallDetailsRepository {
 
     @Autowired
     PlayersRepository playersRepository;
-
     @Autowired
     TeamRepository teamRepository;
 
@@ -50,7 +49,7 @@ public class BallDetailsRepository {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (Exception e){
-            throw new IllegalStateException("Error while Inserting Ball Details with OverId  : " + overId);
+            throw new GameExceptions("Error while Inserting Ball Details with OverId  : " + overId, HttpStatus.INTERNAL_SERVER_ERROR); //CLIENT SHOULD NOT REPEAT THE REQ WITHOUT MODIFICATION
         }
 
     }
@@ -78,11 +77,11 @@ public class BallDetailsRepository {
 
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while getting Ball Details with OverId : " + overId);
+            throw new GameExceptions("Error while getting Ball Details with OverId : " + overId, HttpStatus.NOT_FOUND); //The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent.
         }
 
         if(ballDetails.isEmpty()) {
-            throw new IllegalStateException("With over Id : " + overId + " Ball details does not exist!");
+            throw new GameExceptions("With over Id : " + overId + " Ball details does not exist!", HttpStatus.NO_CONTENT);
         }
 
         return ballDetails;

@@ -21,7 +21,7 @@ public class InningUtil {
     }
 
 
-    public static float getBallsPlayedOfInning(Inning inning) {
+    public static int getBallsPlayedOfInning(Inning inning) {
 
         int ballsPlayed = 0;
         for (int i = 0; i < inning.getOverDetails().size(); i++) {

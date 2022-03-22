@@ -1,7 +1,8 @@
 package com.company.repozitory;
 
-import com.company.Exception.ErrorDetails;
+import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -9,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Repository
 public class MatchRepository {
@@ -37,7 +37,7 @@ public class MatchRepository {
                 matchId = rs.getInt(1);
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while inserting Match : " + matchName);
+            throw new GameExceptions("Error while inserting Match : " + matchName, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return matchId;
@@ -56,7 +56,7 @@ public class MatchRepository {
                 id = rs.getInt(1);
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while fetching MatchId of Match  : " + match);
+            throw new GameExceptions("Error while fetching MatchId of Match  : " + match, HttpStatus.NOT_FOUND);
         }
 
         return id;
@@ -79,11 +79,11 @@ public class MatchRepository {
                 InningIds.add(rs.getInt(3));
             }
         }  catch (Exception e){
-            throw new IllegalStateException("Error while fetching InningIds with matchId: " + matchId);
+            throw new GameExceptions("Error while fetching InningIds with matchId: " + matchId, HttpStatus.NOT_FOUND);
         }
 
         if(InningIds.isEmpty()) {
-            throw new IllegalStateException("With the match Id : " + matchId + " Innings does not exist!");
+            throw new GameExceptions("With the match Id : " + matchId + " Innings does not exist!",HttpStatus.NO_CONTENT );//The server has fulfilled the request but does not need to return an entity-body, and might want to return updated metainformation.
         }
 
         return InningIds;
@@ -103,7 +103,7 @@ public class MatchRepository {
                 exist = true;
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while Checking match existence in Db with Match: " + match);
+            throw new GameExceptions("Error while Checking match existence in Db with Match: " + match, HttpStatus.NOT_FOUND);
         }
         return exist;
     }

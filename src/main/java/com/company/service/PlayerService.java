@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.Exception.GameExceptions;
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.Player;
 import com.company.response.BattingStatsOfPlayer;
@@ -11,6 +12,7 @@ import com.company.repozitory.PlayersRepository;
 import com.company.repozitory.TeamRepository;
 import com.company.util.PlayerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,16 +31,24 @@ public class PlayerService {
     private InningRepository inningRepository;
 
 
+
+    /**
+     * initialisePlayerStats  will initialise every player of a particular team , which is used by get match request
+     * @param  matchName : match in which player details needed
+     * @param teamName: team from which player scores needed
+     * @param playerName : name of player for which score card needed
+     */
+
     public PlayerStatsInSingleMatch initialisePlayerStats(String matchName, String teamName, String playerName) {
 
         if(!matchRepository.checkIfMatchExist(matchName)) {
-            throw new IllegalStateException("Match with name "+ matchName + " does not exist.");
+            throw new GameExceptions("Match with name "+ matchName + " does not exist.", HttpStatus.NOT_FOUND);
         }
         if(!teamRepository.checkIfTeamExist(teamName)) {
-            throw new IllegalStateException("Team with name "+ teamName + " does not exist.");
+            throw new GameExceptions("Team with name "+ teamName + " does not exist.", HttpStatus.NOT_FOUND);
         }
         if(!teamRepository.checkIfPlayerExistInTeam(teamName, playerName)) {
-            throw new IllegalStateException("Player with name "+ playerName + " in Team " + teamName + " does not exist.");
+            throw new GameExceptions("Player with name "+ playerName + " in Team " + teamName + " does not exist.", HttpStatus.NOT_FOUND);
         }
 
         int matchId = matchRepository.getMatchIdByName(matchName);
@@ -54,6 +64,13 @@ public class PlayerService {
 
 
     }
+
+    /**
+     * getPlayerStats  fetch particular score card for a individual player, function called from initialisePlayerStats.
+     * @param  inning1 :
+     * @param inning2:
+     * @param player : name of player for which score card needed
+     */
 
     public PlayerStatsInSingleMatch getPlayerStats (Inning inning1, Inning inning2 , Player player) {
 

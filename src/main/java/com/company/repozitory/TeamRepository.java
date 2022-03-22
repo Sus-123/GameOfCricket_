@@ -1,16 +1,16 @@
 package com.company.repozitory;
 
-import com.company.Exception.ErrorDetails;
+import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
 
 
 @Repository
@@ -50,7 +50,7 @@ public class TeamRepository {
             connection.commit();
 
         } catch (Exception e ) {
-             throw new IllegalStateException( "Error while inserting Team with team name: " + teamName);
+             throw new GameExceptions( "Error while inserting Team with team name: " + teamName, HttpStatus.INTERNAL_SERVER_ERROR);
          }
 
         return teamId;
@@ -71,7 +71,7 @@ public class TeamRepository {
             }
             team = new Team(teamName);
         } catch (Exception e) {
-            throw new IllegalStateException("Error while getting Team with team id: " + teamId);
+            throw new GameExceptions("Error while getting Team with team id: " + teamId, HttpStatus.NOT_FOUND);
         }
         return team;
     }
@@ -90,7 +90,7 @@ public class TeamRepository {
                 teamId = rs.getInt(1);
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while getting Team Id from  db : " + e.getMessage());
+            throw new GameExceptions("Error while getting Team Id from  db : " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
         return teamId;
@@ -112,7 +112,7 @@ public class TeamRepository {
                 id = rs.getInt(1);
 
         } catch (Exception e) {
-            throw new IllegalStateException(" Error wile getting Player: " + player + "from team "+ team + " " + e.getMessage());
+            throw new GameExceptions(" Error wile getting Player: " + player + "from team "+ team + " " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
         return id;
@@ -132,7 +132,7 @@ public class TeamRepository {
                 exist = true;
             } else exist = false;
         } catch (Exception e){
-            throw new IllegalStateException("Error while checking team existance in db : " + e.getMessage());
+            throw new GameExceptions("Error while checking team existance in db : " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
         return exist;
@@ -153,7 +153,7 @@ public class TeamRepository {
                 exist = false;
             }
         } catch (Exception e){
-            throw new IllegalStateException("Error while getting  Player with player id: " + playerId + " " + e.getMessage());
+            throw new GameExceptions("Error while getting  Player with player id: " + playerId + " " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
         return exist;

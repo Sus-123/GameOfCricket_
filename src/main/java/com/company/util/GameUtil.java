@@ -2,25 +2,24 @@ package com.company.util;
 
 import com.company.constants.Constants;
 import com.company.entity.matchEntity.Inning;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class Util {
-
-     static UtilHelper helper = new UtilHelper();
+public class GameUtil {
 
 
+    static GameUtilHelper gameUtilHelper = new GameUtilHelper();
 
     public static int playToss() {
         return ThreadLocalRandom.current().nextInt(Constants.lowerTossBound,Constants.upperTossBound);
     }
 
-
     public static int getRandomRun() {
-        int [] numbers= helper.getIntegerArray();
+
         int ix = ThreadLocalRandom.current().nextInt(0, 100);
-        int num = numbers[ix];
+        int num = gameUtilHelper.getIntegerArray()[ix];
         return num;
      }
 
@@ -38,15 +37,6 @@ public class Util {
          return inning2.getBattingTeam().getName();
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

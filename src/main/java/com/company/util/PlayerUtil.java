@@ -1,10 +1,8 @@
 package com.company.util;
-
-
 import com.company.entity.matchEntity.*;
 
-public class PlayerUtil {
 
+public class PlayerUtil {
 
     public static int getPlayerWiseScore(Player p, Inning inning) {
 
@@ -18,7 +16,6 @@ public class PlayerUtil {
                 }
             }
         }
-
         return  score;
     }
 

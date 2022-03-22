@@ -6,7 +6,7 @@ import com.company.repozitory.BallDetailsRepository;
 import com.company.repozitory.OverDetailsRepository;
 import com.company.util.InningUtil;
 import com.company.util.PlayerUtil;
-import com.company.util.Util;
+import com.company.util.GameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class GameServiceImplementation {
 
         for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
 
-            int currentBowlerIndex = Util.getRandomBowler();
+            int currentBowlerIndex = GameUtil.getRandomBowler();
             if (InningUtil.checkMatchEnd(inning)) break;
             playOver(inning, i, inningId, currentBowlerIndex);
             inning.strike.changeStrikeOnOver();
@@ -80,10 +80,9 @@ public class GameServiceImplementation {
      * @param currentBall : which ball to play
      */
 
-
     BallDetails handleBall( Inning inning, int currentBall) {
         BallDetails ballDetails = new BallDetails();
-        int runs = Util.getRandomRun() ;
+        int runs = GameUtil.getRandomRun() ;
 
         ballDetails.setStrikerOnBall(inning.getBattingTeam().getPlayers().get(inning.strike.getcurrentStriker()));
         if (runs < 7) {
