@@ -27,7 +27,7 @@ public class TeamRepository {
          if(team == null) {
              throw new IllegalStateException("Null Team can not be inserted!");
          }
-         String teamName = team.getName();
+         String teamName = team.getTeamName();
          if(checkIfTeamExist(teamName)) {
              return getTeamIdFromTeamName(teamName);
          }

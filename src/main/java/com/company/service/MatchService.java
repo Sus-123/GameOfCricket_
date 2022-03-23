@@ -102,8 +102,8 @@ public class MatchService {
             ArrayList<PlayerStatsInSingleMatch> teamBPlayersStats = initialisePlayerStats(inning1, inning2, teams.get(1));
 
             int overs = inning2.getNumOfOver();
-            TeamStats teamAStats = new TeamStats(inning1.getBattingTeam().getName(), InningUtil.getScoreOfInning(inning1), InningUtil.getWicketFallen(inning1), InningUtil.getBallsPlayedOfInning(inning1), teamAPlayersStats);
-            TeamStats teamBStats = new TeamStats(inning2.getBattingTeam().getName(), InningUtil.getScoreOfInning(inning2), InningUtil.getWicketFallen(inning2), InningUtil.getBallsPlayedOfInning(inning2), teamBPlayersStats);
+            TeamStats teamAStats = new TeamStats(inning1.getBattingTeam().getTeamName(), InningUtil.getScoreOfInning(inning1), InningUtil.getWicketFallen(inning1), InningUtil.getBallsPlayedOfInning(inning1), teamAPlayersStats);
+            TeamStats teamBStats = new TeamStats(inning2.getBattingTeam().getTeamName(), InningUtil.getScoreOfInning(inning2), InningUtil.getWicketFallen(inning2), InningUtil.getBallsPlayedOfInning(inning2), teamBPlayersStats);
 
             matchStats = new MatchStats(matchName, teamAStats, teamBStats, overs, GameUtil.getWinningTeam(inning1, inning2));
             return matchStats;

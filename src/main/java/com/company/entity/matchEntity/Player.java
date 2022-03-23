@@ -1,31 +1,13 @@
 package com.company.entity.matchEntity;
-import com.company.constants.Constants;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+
+@Data
+@AllArgsConstructor
 public class Player {
 
     private String playerName ;
     private PlayerType playerType;
-
-
-    public Player(String name, String type) {
-        this.playerName = name;
-        if(type.equals(Constants.BATSMAN)) {
-            playerType = PlayerType.BATSMAN;
-        } else {
-            playerType = PlayerType.BOWLER;
-        }
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-
-    public String getPlayerTypeInString () {
-        if(playerType == PlayerType.BATSMAN)
-            return  "BATSMAN";
-        return "BOWLER";
-    }
-
 
 }

@@ -31,10 +31,10 @@ public class GameUtil {
     public static String getWinningTeam(Inning inning1, Inning inning2) {
 
          if(InningUtil.getScoreOfInning(inning1) > InningUtil.getScoreOfInning(inning2)) {
-             return  inning1.getBattingTeam().getName();
+             return  inning1.getBattingTeam().getTeamName();
          }
 
-         return inning2.getBattingTeam().getName();
+         return inning2.getBattingTeam().getTeamName();
 
     }
 

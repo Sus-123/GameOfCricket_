@@ -56,7 +56,7 @@ public class GameService {
             Strike strike1 = new Strike();
             inning1 = new Inning(team1, team2, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);
-            System.out.println(team1.getName() + " ended game with " + InningUtil.getScoreOfInning(inning1));
+            System.out.println(team1.getTeamName() + " ended game with " + InningUtil.getScoreOfInning(inning1));
 
             System.out.println("--------Second Inning -------");
 
@@ -64,7 +64,7 @@ public class GameService {
             Strike strike2 = new Strike();
             inning2 = new Inning(team2, team1, true, InningUtil.getScoreOfInning(inning1), numOfOver, strike2);
             gameServiceHelper.playInning(inning2, inning2Id);
-            System.out.println(team2.getName() + " ended game with " + InningUtil.getScoreOfInning(inning2));
+            System.out.println(team2.getTeamName() + " ended game with " + InningUtil.getScoreOfInning(inning2));
 
         }
         else {
@@ -76,14 +76,14 @@ public class GameService {
             Strike strike1 = new Strike();
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);
-            System.out.println(team2.getName() + " ended game with " + InningUtil.getScoreOfInning(inning1));
+            System.out.println(team2.getTeamName() + " ended game with " + InningUtil.getScoreOfInning(inning1));
 
             System.out.println("--------Second Inning -------");
 
             Strike strike2 = new Strike();
             inning2 = new Inning(team1, team2, true, InningUtil.getScoreOfInning(inning1), numOfOver, strike2);
             gameServiceHelper.playInning(inning2, inning2Id);
-            System.out.println(team1.getName() + " ended game with " + InningUtil.getScoreOfInning(inning2));
+            System.out.println(team1.getTeamName() + " ended game with " + InningUtil.getScoreOfInning(inning2));
         }
     }
 

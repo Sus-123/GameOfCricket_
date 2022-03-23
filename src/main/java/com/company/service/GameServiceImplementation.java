@@ -29,7 +29,7 @@ public class GameServiceImplementation {
 
     public void playInning (Inning inning, int inningId)  {
 
-        System.out.println("Team " + inning.getBattingTeam().getName() + " Started the match ");
+        System.out.println("Team " + inning.getBattingTeam().getTeamName() + " Started the match ");
 
         for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
 
@@ -52,12 +52,13 @@ public class GameServiceImplementation {
 
     public void playOver (Inning inning, int over, int inningId, int currentBowlerIndex) {
         OverDetails overDetails = new OverDetails();
-        inning.setOverDetails(overDetails);
+        //inning.setOverDetails(overDetails);
+        inning.getOverDetails().add(overDetails);
 
         String bowlerName = inning.getBowlingTeam().getPlayers().get(currentBowlerIndex).getPlayerName();
         System.out.println("Playing Over: " + over + " Bowler is: " + bowlerName);
 
-        int overDetailsId = overDetailsRepository.insertOverDetails(inningId, bowlerName, inning.getBowlingTeam().getName());
+        int overDetailsId = overDetailsRepository.insertOverDetails(inningId, bowlerName, inning.getBowlingTeam().getTeamName());
         inning.getOverDetails().get(over-1).setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
         for (int j = Constants.ONE; j <= Constants.totalBallInOver; j++) {
 
@@ -66,7 +67,7 @@ public class GameServiceImplementation {
             BallDetails ballDetails = handleBall( inning, j);
 
             inning.getOverDetails().get(over-1).getBallDetails().add(ballDetails);
-            ballDetailsRepository.insertBallDetails(ballDetails, overDetailsId, inning.getBattingTeam().getName(), inningId);
+            ballDetailsRepository.insertBallDetails(ballDetails, overDetailsId, inning.getBattingTeam().getTeamName(), inningId);
 
         }
     }

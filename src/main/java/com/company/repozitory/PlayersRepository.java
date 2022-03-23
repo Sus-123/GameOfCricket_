@@ -3,6 +3,7 @@ package com.company.repozitory;
 import com.company.Exception.GameExceptions;
 import com.company.database.DbConnector;
 import com.company.entity.matchEntity.Player;
+import com.company.entity.matchEntity.PlayerType;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class PlayersRepository {
                 Player p = players.get(i);
                 preparedStatement.setInt(1, teamId);
                 preparedStatement.setString(2, p.getPlayerName());
-                preparedStatement.setString(3, p.getPlayerTypeInString());
+                preparedStatement.setString(3, p.getPlayerType().toString());
                 preparedStatement.addBatch();
             }
 
@@ -52,7 +53,9 @@ public class PlayersRepository {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             rs.next();
-            player = new Player(rs.getString(3), rs.getString(4));
+            String pName = rs.getString(3);
+            PlayerType playerType = PlayerType.valueOf(rs.getString(4));
+            player = new Player(pName, playerType);
         } catch (Exception e){
             throw new GameExceptions("Error while getting  Player with player id: " + playerId, HttpStatus.NOT_FOUND);
         }

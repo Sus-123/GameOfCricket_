@@ -1,8 +1,10 @@
 package com.company.entity.matchEntity;
 import com.company.constants.Constants;
+import lombok.Data;
 
 import java.util.ArrayList;
 
+@Data
 public class Team {
 
     private  String teamName;
@@ -17,23 +19,17 @@ public class Team {
     private void setTeamPlayers(String teamName) {
         for (int i = 0; i < Constants.totalPlayerInTeam; i++) {
             String playerName = (teamName + (i+1));
-            String playerType;
+            PlayerType playerType;
             if(i < Constants.MaxBatsmanInTeam)
-                playerType = Constants.BATSMAN;
+                playerType = PlayerType.BATSMAN;
             else
-                playerType = Constants.BOWLER;
+                playerType = PlayerType.BOWLER;
             Player p = new Player(playerName, playerType);
             players.add(p);
         }
     }
 
-    public String getName() {
-        return  this.teamName;
-    }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
 
 
 

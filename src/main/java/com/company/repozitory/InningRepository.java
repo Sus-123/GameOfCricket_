@@ -70,7 +70,7 @@ public class InningRepository {
             inning = new Inning(battingTeam, bowlingTeam, true, Constants.ZERO, rs.getInt(4), new Strike());
 
             ArrayList<OverDetails> overDetails = overDetailsRepository.getOvers(id);
-            inning.setOverDetailsArr(overDetails);
+            inning.setOverDetails(overDetails);
         } catch (Exception e){
             throw new GameExceptions( "Error while getting Inning with Id : " + id, HttpStatus.NOT_FOUND);
         }
