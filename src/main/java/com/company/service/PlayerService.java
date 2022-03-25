@@ -1,8 +1,9 @@
 package com.company.service;
-
 import com.company.Exception.GameExceptions;
+import com.company.constants.Constants;
 import com.company.entity.matchEntity.Inning;
 import com.company.entity.matchEntity.Player;
+import com.company.entity.matchEntity.Team;
 import com.company.response.BattingStatsOfPlayer;
 import com.company.response.BowlingStatsOfPlayer;
 import com.company.response.PlayerStatsInSingleMatch;
@@ -36,10 +37,10 @@ public class PlayerService {
      * initialisePlayerStats  will initialise every player of a particular team , which is used by get match request
      * @param  matchName : match in which player details needed
      * @param teamName: team from which player scores needed
-     * @param playerName : name of player for which score card needed
+     * @param playerNo : name of player for which score card needed
      */
 
-    public PlayerStatsInSingleMatch initialisePlayerStats(String matchName, String teamName, String playerName) {
+    public PlayerStatsInSingleMatch initialisePlayerStats(String matchName, String teamName, int playerNo) {
 
         if(!matchRepository.checkIfMatchExist(matchName)) {
             throw new GameExceptions("Match with name "+ matchName + " does not exist.", HttpStatus.NOT_FOUND);
@@ -47,18 +48,20 @@ public class PlayerService {
         if(!teamRepository.checkIfTeamExist(teamName)) {
             throw new GameExceptions("Team with name "+ teamName + " does not exist.", HttpStatus.NOT_FOUND);
         }
-        if(!teamRepository.checkIfPlayerExistInTeam(teamName, playerName)) {
-            throw new GameExceptions("Player with name "+ playerName + " in Team " + teamName + " does not exist.", HttpStatus.NOT_FOUND);
+        if(playerNo > Constants.totalPlayerInTeam || playerNo <= Constants.ZERO ) {
+            throw new GameExceptions(" player Number can only be between 0 and 11 ", HttpStatus.NOT_FOUND);
         }
 
+
+        Team team =  teamRepository.getTeam(teamRepository.getTeamIdFromTeamName(teamName));
+        Player player = team.getPlayers().get(playerNo-1);
+
         int matchId = matchRepository.getMatchIdByName(matchName);
-        int playerId = teamRepository.getPlayerId(playerName, teamName);
 
         ArrayList<Integer> inningsIds = matchRepository.getInningId(matchId);
 
         Inning inning1 = inningRepository.getInning(inningsIds.get(0));
         Inning inning2 = inningRepository.getInning(inningsIds.get(1));
-        Player player = playersRepository.getPlayer(playerId);
 
         return getPlayerStats(inning1, inning2, player);
 

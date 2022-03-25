@@ -1,118 +1,97 @@
 package com.company.util;
 import com.company.entity.matchEntity.*;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class PlayerUtil {
 
     public static int getPlayerWiseScore(Player p, Inning inning) {
+        AtomicInteger score = new AtomicInteger();
+        inning.getOverDetails().stream().forEach(over -> {
+            over.getBallDetails().stream()
+                    .filter(ball->ball.getStrikerOnBall().getPlayerName().equals(p.getPlayerName()))
+                    .forEach(ball -> {
+                score.addAndGet(ball.getScoreOnBall());
+            });
+        });
 
-        int score = 0;
-        for (int i = 0; i <inning.getOverDetails().size() ; i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-
-            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall().getPlayerName().equals(p.getPlayerName())  ) {
-                    score += currentOverDetails.getBallDetails().get(j).getScoreOnBall();
-                }
-            }
-        }
-        return  score;
+        return score.get();
     }
 
     public static int getTotalBallsPlayed (Player player, Inning inning) {
-        int balls = 0;
-        for (int i = 0; i < inning.getOverDetails().size(); i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-
-            for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
-                BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
-
-                if(currentBallDetails.getStrikerOnBall().getPlayerName().equals(player.getPlayerName())) {
-                    balls ++;
-                }
-            }
-        }
-
-        return  balls;
+        AtomicInteger totalBalls = new AtomicInteger();
+        inning.getOverDetails().stream().forEach(over -> {
+            over.getBallDetails().stream()
+                    .filter(ball->ball.getStrikerOnBall().getPlayerName().equals(player.getPlayerName()))
+                    .forEach(ball -> {
+                totalBalls.incrementAndGet();
+            });
+        });
+        return totalBalls.get();
     }
 
+    public static int getSixes(Player player, Inning inning) {
+        AtomicInteger sixes = new AtomicInteger();
+        inning.getOverDetails().stream()
+                .forEach(over -> {over
+                        .getBallDetails().stream()
+                        .filter( ball->ball.getStrikerOnBall().getPlayerName().equals(player.getPlayerName()) )
+                        .filter(ball -> ball.getScoreOnBall() == 6)
+                        .forEach(ball ->{
+                            sixes.incrementAndGet();
+                        });
+
+            });
+
+        return sixes.get();
+
+    }
+
+    public static int getFours(Player player, Inning inning) {
+        AtomicInteger fours = new AtomicInteger();
+        inning.getOverDetails().stream()
+                .forEach(over -> {over
+                        .getBallDetails().stream()
+                        .filter( ball->ball.getStrikerOnBall().getPlayerName().equals(player.getPlayerName()) )
+                        .filter(ball -> ball.getScoreOnBall() == 4)
+                        .forEach(ball ->{
+                            fours.incrementAndGet();
+                        });
+
+                });
+        return fours.get();
+    }
+
+    public static int getWicketTakenByBowler (Player player, Inning inning) {
+
+        AtomicInteger wicketTaken = new AtomicInteger();
+        inning.getOverDetails().stream()
+                .filter(over->over.getBowler().getPlayerName().equals(player.getPlayerName()))
+                .forEach(over-> {over
+                        .getBallDetails().stream()
+                        .filter(ball-> ball.getBallType().equals(BallType.WICKET))
+                        .forEach(ball->{
+                            wicketTaken.incrementAndGet();
+                        });
+            });
+        return wicketTaken.get();
+    }
+
+    public static int getBallsBowledByBowler(Player player, Inning inning) {
+
+        AtomicInteger ballsBowled = new AtomicInteger();
+        inning.getOverDetails().stream()
+                .filter(over->over.getBowler().getPlayerName().equals(player.getPlayerName()))
+                .forEach(over-> {
+                    ballsBowled.addAndGet(over.getBallDetails().size());
+                });
+        return ballsBowled.get();
+    }
 
 
     public static int getCenturies(Player player, Inning inning) {
         return  getPlayerWiseScore(player,inning)/100;
     }
-
-    public static int getSixes(Player player, Inning inning) {
-
-        int sixes = 0;
-        for (int i = 0; i <inning.getOverDetails().size() ; i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-
-            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall().getPlayerName().equals(player.getPlayerName())  ) {
-                    int score = currentOverDetails.getBallDetails().get(j).getScoreOnBall();
-                    if(score == 6) sixes++;
-                }
-            }
-        }
-
-        return  sixes;
-
-    }
-
-    public static int getFours(Player player, Inning inning) {
-
-        int fours = 0;
-        for (int i = 0; i <inning.getOverDetails().size() ; i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-
-            for (int j = 0; j < currentOverDetails.getBallDetails().size()  ; j++) {
-                if(currentOverDetails.getBallDetails().get(j).getStrikerOnBall().getPlayerName().equals(player.getPlayerName())  ) {
-                    int score = currentOverDetails.getBallDetails().get(j).getScoreOnBall();
-                    if(score == 4) fours++;
-                }
-            }
-        }
-
-        return  fours;
-
-    }
-
-    public static int getWicketTakenByBowler (Player player, Inning inning) {
-        int wicketTaken = 0;
-        for (int i = 0; i < inning.getOverDetails().size(); i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-            Player bowler = currentOverDetails.getBowler();
-
-            if(bowler.getPlayerName().equals(player.getPlayerName())) {
-                for (int j = 0; j < currentOverDetails.getBallDetails().size(); j++) {
-                    BallDetails currentBallDetails = currentOverDetails.getBallDetails().get(j);
-                    if (currentBallDetails.getBallType().equals(BallType.WICKET)) {
-                        wicketTaken++;
-                    }
-
-                }
-            }
-
-        }
-        return  wicketTaken;
-    }
-
-    public static int getBallsBowledByBowler(Player player, Inning inning) {
-        int ballsBowled = 0;
-        for (int i = 0; i < inning.getOverDetails().size(); i++) {
-            OverDetails currentOverDetails = inning.getOverDetails().get(i);
-            Player bowler = currentOverDetails.getBowler();
-            if(bowler.getPlayerName().equals(player.getPlayerName()))
-                ballsBowled += currentOverDetails.getBallDetails().size();
-        }
-        return  ballsBowled;
-    }
-
-
-
-
-
-
 
 }

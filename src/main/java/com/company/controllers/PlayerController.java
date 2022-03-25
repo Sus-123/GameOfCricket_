@@ -17,10 +17,10 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/match/{matchName}/team/{teamName}/player/{playerName}")
-    public ResponseEntity<PlayerStatsInSingleMatch> getPlayerInfoFromMatchName(@PathVariable("matchName") String matchName, @PathVariable("teamName") String teamName, @PathVariable("playerName") String playerName)  {
+    @GetMapping("/match/{matchName}/team/{teamName}/playerNo/{playerNo}")
+    public ResponseEntity<PlayerStatsInSingleMatch> getPlayerInfoFromMatchName(@PathVariable("matchName") String matchName, @PathVariable("teamName") String teamName, @PathVariable("playerNo") int playerNo)  {
 
-        PlayerStatsInSingleMatch playerStatsInSingleMatch = playerService.initialisePlayerStats(matchName,teamName, playerName);
+        PlayerStatsInSingleMatch playerStatsInSingleMatch = playerService.initialisePlayerStats(matchName,teamName, playerNo);
         if(playerStatsInSingleMatch == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

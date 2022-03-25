@@ -139,25 +139,6 @@ public class TeamRepository {
 
     }
 
-    public boolean checkIfPlayerExistInTeam(String teamName, String playerName) {
-        boolean exist = false;
-        int playerId = getPlayerId(playerName, teamName);
-        try {
-            String query = "SELECT * FROM PlayersTable WHERE PlayerId = " + playerId;
-            Connection connection = DbConnector.getConnection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            if( rs.next()) {
-                exist = true;
-            } else {
-                exist = false;
-            }
-        } catch (Exception e){
-            throw new GameExceptions("Error while getting  Player with player id: " + playerId + " " + e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-
-        return exist;
-    }
 
 
 
