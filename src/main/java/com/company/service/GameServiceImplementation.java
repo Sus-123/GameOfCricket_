@@ -31,12 +31,13 @@ public class GameServiceImplementation {
 
         System.out.println("Team " + inning.getBattingTeam().getTeamName() + " Started the match ");
 
-        for (int i = Constants.ONE; i <= inning.getNumOfOver(); i++) {
+        for (int over = Constants.ONE; over <= inning.getNumOfOver(); over++) {
 
-            int currentBowlerIndex = GameUtil.getRandomBowler();
             if (InningUtil.checkMatchEnd(inning)) break;
-            playOver(inning, i, inningId, currentBowlerIndex);
+            int currentBowlerIndex = GameUtil.getRandomBowler();
+            playOver(inning, over, inningId, currentBowlerIndex);
             inning.strike.changeStrikeOnOver();
+
         }
     }
 
@@ -60,11 +61,11 @@ public class GameServiceImplementation {
 
         int overDetailsId = overDetailsRepository.insertOverDetails(inningId, bowlerName, inning.getBowlingTeam().getTeamName());
         inning.getOverDetails().get(over-1).setBowler(inning.getBowlingTeam().getPlayers().get(currentBowlerIndex));
-        for (int j = Constants.ONE; j <= Constants.totalBallInOver; j++) {
+        for (int ball = Constants.ONE; ball <= Constants.totalBallInOver; ball++) {
 
             if (InningUtil.checkMatchEnd(inning)) break;
 
-            BallDetails ballDetails = handleBall( inning, j);
+            BallDetails ballDetails = handleBall( inning, ball);
 
             inning.getOverDetails().get(over-1).getBallDetails().add(ballDetails);
             ballDetailsRepository.insertBallDetails(ballDetails, overDetailsId, inning.getBattingTeam().getTeamName(), inningId);
@@ -97,11 +98,14 @@ public class GameServiceImplementation {
 
         ballDetails.setScoreOnBall(0);
         ballDetails.setBallType(BallType.WICKET);
-        int outPlayer = inning.strike.changeStrikeOnWicket();
-        Player p = inning.getBattingTeam().getPlayers().get(outPlayer);
-        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + PlayerUtil.getPlayerWiseScore(p,inning) );
-
+        inning.strike.changeStrikeOnWicket();
         return  ballDetails ;
+
+
+//        Player p = inning.getBattingTeam().getPlayers().get(outPlayer);
+//        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + PlayerUtil.getPlayerWiseScore(p,inning) );
+
+
     }
 
 

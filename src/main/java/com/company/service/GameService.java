@@ -72,7 +72,6 @@ public class GameService {
             int inning2Id = inningRepository.insertInning(team1Id, team2Id, numOfOver);
             matchRepository.insertMatch(inning1Id, inning2Id, matchName);
 
-
             Strike strike1 = new Strike();
             inning1 = new Inning(team2, team1, false, 0, numOfOver, strike1);
             gameServiceHelper.playInning(inning1, inning1Id);

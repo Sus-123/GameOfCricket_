@@ -14,7 +14,6 @@ import java.util.ArrayList;
 @Repository
 public class MatchRepository {
 
-
     //Table- MatchTable(MatchId, Inning1Id, Inning2Id, MatchName)
     public  int insertMatch(int inning1Id, int inning2Id, String matchName)  {
         int matchId = 0;
