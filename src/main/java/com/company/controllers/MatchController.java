@@ -3,6 +3,7 @@ import com.company.constants.Constants;
 import com.company.request.Match;
 import com.company.response.MatchStats;
 import com.company.service.MatchService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class MatchController {
 
 
     @GetMapping("/matchResult/{matchName}")
+    @ApiOperation(value = "Get match details by match Name")
     public ResponseEntity<MatchStats> getMatchByName (@PathVariable("matchName") String matchName) {
 
         MatchStats matchStats = matchService.getMatch(matchName);

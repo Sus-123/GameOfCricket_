@@ -1,5 +1,5 @@
 package com.company.database;
-import com.company.dataProvider.ConfigFileReader;
+import com.company.config.FileReaderConfiguration;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -11,7 +11,7 @@ public class DbConnector {
 
     private static void initializeConnection() {
         try {
-            Properties properties = ConfigFileReader.getProperties("src/main/resources/application.properties");
+            Properties properties = FileReaderConfiguration.getProperties("src/main/resources/application.properties");
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(properties.getProperty("url"),  properties.getProperty("user"), properties.getProperty("pass"));
         } catch (Exception e){

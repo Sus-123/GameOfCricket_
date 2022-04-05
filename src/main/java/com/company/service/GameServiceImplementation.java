@@ -98,14 +98,11 @@ public class GameServiceImplementation {
 
         ballDetails.setScoreOnBall(0);
         ballDetails.setBallType(BallType.WICKET);
-        inning.strike.changeStrikeOnWicket();
+        int outPlayer = inning.strike.changeStrikeOnWicket();
+        Player p = inning.getBattingTeam().getPlayers().get(outPlayer);
+        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + PlayerUtil.getPlayerWiseScore(p,inning) );
+
         return  ballDetails ;
-
-
-//        Player p = inning.getBattingTeam().getPlayers().get(outPlayer);
-//        System.out.println("Player " + inning.getBattingTeam().getPlayers().get(outPlayer).getPlayerName() + " Out with " + PlayerUtil.getPlayerWiseScore(p,inning) );
-
-
     }
 
 

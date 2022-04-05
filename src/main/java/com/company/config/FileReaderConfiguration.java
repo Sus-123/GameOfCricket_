@@ -1,10 +1,10 @@
-package com.company.dataProvider;
+package com.company.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConfigFileReader {
+public class FileReaderConfiguration {
 
     public static Properties getProperties(String filename)  {
         try {

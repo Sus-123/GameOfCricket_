@@ -29,20 +29,13 @@ public class Strike {
         currentStrike = (currentStrike+1)%2;
     }
 
-    public void changeStrikeOnWicket () {
+    public int changeStrikeOnWicket () {
         int maxPlayerIndex = Integer.max(strikeHolders[0], strikeHolders[1]);
         //Now next player will be the one who has just a greater number than the max Players index.
         int outedPlayer = strikeHolders[currentStrike];
         strikeHolders[currentStrike] = maxPlayerIndex+1;
+        return  outedPlayer;
     }
-
-//    public int changeStrikeOnWicket () {
-//        int maxPlayerIndex = Integer.max(strikeHolders[0], strikeHolders[1]);
-//        //Now next player will be the one who has just a greater number than the max Players index.
-//        int outedPlayer = strikeHolders[currentStrike];
-//        strikeHolders[currentStrike] = maxPlayerIndex+1;
-//        return  outedPlayer;
-//    }
 
 }
 
