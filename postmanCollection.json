@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "9c595808-4f73-4462-a103-93a846baceda",
+    "name": "GameOfCricket_",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "MatchApis",
+      "item": [
+        {
+          "name": "PlayMatch",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"overs\" : 5,\n    \"first_team_name\" : \"Australia\",\n    \"second_team_name\" : \"India\",\n    \"match_name\" : \"TestMatch\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/play/match",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "play",
+                "match"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMatchDetails",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/matchResult/TestMatch",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "matchResult",
+                "TestMatch"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PlayerApis",
+      "item": [
+        {
+          "name": "PlayerPerformance_Sample1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/match/TestMatch/team/India/player/India1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "match",
+                "TestMatch",
+                "team",
+                "India",
+                "player",
+                "India1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PlayerPerformance_Sample2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/match/TestMatch/team/India/player/India2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "match",
+                "TestMatch",
+                "team",
+                "India",
+                "player",
+                "India2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PlayerPerformance_Sample2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/match/TestMatch/team/Australia/player/Australia1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "match",
+                "TestMatch",
+                "team",
+                "Australia",
+                "player",
+                "Australia1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "TeamApis",
+      "item": [
+        {
+          "name": "getTeamDetails",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/team/India",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "team",
+                "India"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
